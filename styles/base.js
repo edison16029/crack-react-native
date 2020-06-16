@@ -5,7 +5,7 @@ export const dimensions = {
     fullWidth: Dimensions.get('window').width
 }
     
-export const deafultColors  = {
+export const defaultColors  = {
     primary: '#52575C',
     primaryDark: '#353535',
     accent: '#FFFFFF',
