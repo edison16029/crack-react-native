@@ -10,7 +10,7 @@ function ButtonComponent(props) {
     return (
         <TouchableOpacity
           onPress =  {onPress}
-          style={[styles.play_button_container,{backgroundColor : theme.colors.primary}]}>
+          style={[styles.play_button_container,{backgroundColor : theme.colors.primaryDark}]}>
             <Text style={[styles.button_text,{color : theme.colors.accent}]}>PLAY</Text>
         </TouchableOpacity>
     );
@@ -18,7 +18,7 @@ function ButtonComponent(props) {
 
 const styles = StyleSheet.create({
     play_button_container  : {
-        backgroundColor : BaseStyles.defaultColors.primary,
+        backgroundColor : BaseStyles.defaultColors.primaryDark,
         borderRadius : 20,
         alignItems : 'center',
         justifyContent : 'center',

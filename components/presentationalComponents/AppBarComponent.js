@@ -9,8 +9,12 @@ function AppBarComponent(props) {
     const theme = useSelector(state => state.theme)
     return (
         <View style={styles.app_bar_container}>
-            <Icon color={theme.colors.accent} name="cog" type="font-awesome" size={size} style={styles.app_bar_icons}/>
-            <Icon color={theme.colors.accent} name="question-circle" type="font-awesome" size={size} style={styles.app_bar_icons}/>
+            <Icon color={theme.colors.accent} name="cog" 
+                type="font-awesome" size={size} style={styles.app_bar_icons}
+                onPress = {props.onSettingsPress}/>
+            <Icon color={theme.colors.accent} name="question-circle" 
+                type="font-awesome" size={size} style={styles.app_bar_icons}
+                onPress = {props.onHowToPlayPress}/>
         </View>
     )
 }
