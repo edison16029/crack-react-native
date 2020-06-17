@@ -35,7 +35,7 @@ function RenderColors(props){
                 borderColor:colors.accent,
                 borderWidth : 1,
                 borderRadius:15,marginHorizontal : 2,
-                backgroundColor:colors.primaryDark}}>
+                backgroundColor:colors.primary}}>
                     {setIcon(colors)}
             </View>
         </TouchableNativeFeedback>
