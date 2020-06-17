@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { View,Text } from 'react-native';
+import { View } from 'react-native';
+import SinglePlayerGameComponent from './SinglePlayerGameComponent';
+import { useSelector } from 'react-redux';
 
-class GameComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  };
+function GameComponent(props) {
+    const theme = useSelector(state => state.theme);
+    const containerStyle = {
+        flex : 1,
+        backgroundColor : theme.colors.primary,
     }
-    render() {
-        return (
-            <View>
-                <Text>Game Component</Text>
-            </View>
-        );
-    }
+    return (
+        <View style={containerStyle}>
+            <SinglePlayerGameComponent />
+        </View>
+    );
 }
 
 export default GameComponent;
