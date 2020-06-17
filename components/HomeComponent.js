@@ -44,9 +44,9 @@ class HomeComponent extends Component {
 
     onScreenPress() {
         console.log(" [ HomeComponent.js ] " + "Screen Pressed");
-        this.setState({
-            homeCardContent : 'logo'
-        })
+        // this.setState({
+        //     homeCardContent : 'logo'
+        // })
     }
 
     onPlayPress() {
@@ -56,15 +56,29 @@ class HomeComponent extends Component {
     }
 
     onHowToPlayPress() {
-        this.setState({
-            homeCardContent : 'howToPlay'
-        })
+        if(this.state.homeCardContent === 'howToPlay'){
+            this.setState({
+                homeCardContent : 'logo'
+            })
+        }
+        else{
+            this.setState({
+                homeCardContent : 'howToPlay'
+            })
+        }
     }
 
     onSettingsPress() {
-        this.setState({
-            homeCardContent : 'settings'
-        })
+        if(this.state.homeCardContent === 'settings'){
+            this.setState({
+                homeCardContent : 'logo'
+            })
+        }
+        else{
+            this.setState({
+                homeCardContent : 'settings'
+            })
+        }
     }
     render() {
         const containerStyle = {

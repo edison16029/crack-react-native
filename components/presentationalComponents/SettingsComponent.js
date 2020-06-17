@@ -1,9 +1,57 @@
 import * as React from 'react';
 import { Text,View,Switch } from 'react-native';
 import * as BaseStyles from '../../styles/base';
+import * as ThemeColours from '../../styles/themes';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSound, setVibrate} from '../../redux/actionCreators';
+import { setColors } from '../../redux/actionCreators';
+import Icon from 'react-native-vector-icons/FontAwesome5' ;
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
+function RenderColors(props){
+    const theme = useSelector(state => state.theme);
+    const dispatch = useDispatch();
+
+    const changeThemeColor = (color) => {
+        dispatch(setColors(color));
+    }
+    const setIcon = (colors) => {
+        if(theme.colors === colors){
+            return(
+                <Icon color={colors.accent} name="check" 
+                type="font-awesome" size={15}
+            />
+            )
+        }
+        else{
+            return( <></>)
+        }
+    }
+
+
+    const renderColor = (colors) => (
+        <TouchableNativeFeedback onPress={() => {changeThemeColor(colors)}}>
+            <View style={{width:30,height:30,justifyContent:'center',alignItems:'center',
+                borderColor:colors.accent,
+                borderWidth : 1,
+                borderRadius:15,marginHorizontal : 2,
+                backgroundColor:colors.primaryDark}}>
+                    {setIcon(colors)}
+            </View>
+        </TouchableNativeFeedback>
+
+    )
+
+    return(
+        <View style={{flexDirection:'row'}}>
+            {renderColor(ThemeColours.darkTheme.colors)}
+            {renderColor(ThemeColours.lightTheme.colors)}
+            {renderColor(ThemeColours.jungleTheme.colors)}
+            {renderColor(ThemeColours.skyTheme.colors)}
+            {renderColor(ThemeColours.desertTheme.colors)}
+        </View>
+    );
+}
 function SettingsComponent(props){
     const theme = useSelector(state => state.theme);
     const dispatch = useDispatch();
@@ -79,8 +127,8 @@ function SettingsComponent(props){
 
             <View style={rowContainerStyle}>
                 <View style={rowStyle}>
-                    <Text style={textStyle}>Hello</Text>                
-                    <Text>Hello</Text>
+                    <Text style={textStyle}>Theme</Text>                
+                    <RenderColors />
                 </View>
             </View>
 

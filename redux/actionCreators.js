@@ -12,7 +12,7 @@ export const setTheme = (theme) => ({
     payload : theme
 })
 
-export const setColors= (colors) => ({
+export const setColors = (colors) => ({
     type : ActionTypes.SET_COLORS,
     payload : colors
 })
