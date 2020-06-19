@@ -4,6 +4,7 @@ import { fetchTargetWord,fetchGuessResult } from '../shared/fetchFunctions'
 //Redux
 import { connect } from 'react-redux'
 //Presentational Components
+import AppBarComponent from './presentationalComponents/AppBarComponent'
 import GuessInputComponent from './presentationalComponents/GuessInputComponent'
 import GuessHistoryComponent from './presentationalComponents/GuessHistoryComponent'
 import GuessResultComponent from './presentationalComponents/GuessResultComponent'
@@ -69,6 +70,7 @@ class SinglePlayerGameComponent extends Component {
         }
         return (
             <SafeAreaView style = {containerStyle}>
+                <AppBarComponent />
                 <GuessHistoryComponent guesses = {this.state.guesses.slice(1)}/>
                 <GuessResultComponent 
                     guess = {this.state.guesses.length > 0 ? this.state.guesses[0]['word'] : null}

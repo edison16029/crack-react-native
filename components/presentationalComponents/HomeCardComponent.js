@@ -17,7 +17,7 @@ function HomeCardComponent(props) {
 
 const styles = StyleSheet.create({
     card_container : {
-        flex : 0.4,
+        flex : 4,
         backgroundColor : BaseStyles.defaultColors.primary,
         borderRadius : 20,
         borderWidth : 0,

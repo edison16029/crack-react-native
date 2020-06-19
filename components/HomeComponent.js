@@ -40,7 +40,7 @@ class HomeComponent extends Component {
     }
     render() {
         const containerStyle = {
-            flex : 1,
+            flex : 10,
             backgroundColor : this.props.theme.colors.primaryDark,
             alignItems : "center"
         }
@@ -48,7 +48,7 @@ class HomeComponent extends Component {
             <View style={containerStyle}>
                 <AppBarComponent />
                 <HomeCardComponent />
-                <View style={{flex : 0.5,alignItems:'center',justifyContent:'space-evenly'}}>
+                <View style={{flex : 5,alignItems:'center',justifyContent:'space-evenly'}}>
                     <ButtonComponent onPress={this.onPlayPress}/>
                 </View>
 
