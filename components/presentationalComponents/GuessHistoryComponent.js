@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, ScrollView, StyleSheet, FlatList} from 'react-native';
-import ResultBoxComponent from './ResultBoxComponent'
+import CBCountComponent from './CBCountComponent'
 import * as BaseStyles from '../../styles/base'
 import {useSelector} from 'react-redux'
 import PropTypes from 'prop-types'
@@ -25,7 +25,10 @@ function GuessHistoryComponent(props) {
     const renderGuessHistoryRow = ({item,index}) => (
     <View key = {item.id} style = {guessRow}>
         <Text style = {font}>{item.word}</Text>
-        <ResultBoxComponent cows = {item.cows ? item.cows : 0} bulls = {item.bulls ? item.bulls : 0} />
+        <View style = {{flexDirection : 'row'}} >
+            <CBCountComponent iconName = "crosshair" iconSize = {36} CBCount = {item.cows} />
+            <CBCountComponent iconName = "bullseye" iconSize = {36} CBCount = {item.bulls} />
+        </View>
     </View>
     );
 
@@ -47,12 +50,17 @@ const styles = StyleSheet.create({
     guessRow : {
         flex : 1,
         flexDirection : 'row',
-        justifyContent : 'space-around',
+        justifyContent : 'space-between',
         alignItems : 'center',
-        margin : BaseStyles.padding.xs,
-        borderRadius : BaseStyles.borderRadius.radiusSm,
+        marginVertical : BaseStyles.padding.xs,
+        marginHorizontal : BaseStyles.padding.sm,
+        borderRadius : BaseStyles.borderRadius.radiusLg,
+        elevation : 5,
     },
     font : {
+        flex : 1,
+        textAlign : 'left',
+        marginLeft : BaseStyles.padding.lg,
         fontSize : BaseStyles.fonts.md,
         textTransform : 'uppercase'
     }

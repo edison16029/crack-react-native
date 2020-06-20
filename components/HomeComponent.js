@@ -82,8 +82,8 @@ class HomeComponent extends Component {
     }
     render() {
         const containerStyle = {
-            flex : 1,
-            backgroundColor : this.props.theme.colors.primary,
+            flex : 10,
+            backgroundColor : this.props.theme.colors.primaryDark,
             alignItems : "center"
         }
         return (
@@ -96,7 +96,7 @@ class HomeComponent extends Component {
                         <HomeCardComponent
                             content = {this.state.homeCardContent} />
 
-                    <View style={{flex : 0.5,alignItems:'center',justifyContent:'space-evenly'}}>
+                    <View style={{flex : 5,alignItems:'center',justifyContent:'space-evenly'}}>
                         <ButtonComponent onPress={this.onPlayPress}/>
                     </View>
                 </View>

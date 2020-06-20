@@ -27,8 +27,8 @@ function GuessInputComponent(props)  {
     return (
         <View style = {styles.container}>
             <TextInput 
-                value={input} onChangeText = {handleChangeText} style = {textInput}
-                placeholder = ". . . ." autoCapitalize = {'characters'} maxLength = {4} />
+                value={input} onChangeText = {handleChangeText} style = {textInput} maxLength = {4}
+                placeholder = ". . . ." autoCapitalize = {'characters'} placeholderTextColor = {theme.colors.accent} />
              
             <TouchableOpacity style = {guessButton} onPress = {handleGuessButtonPress}>
                 <Icon style = {guessButtonIcon} size = {iconSize} name = "arrow-up" type = "font-awesome"/>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         textAlign : 'center',
         fontFamily : BaseStyles.fonts.primary,
         fontSize : BaseStyles.dimensions.fullWidth * 0.33 * 0.2,
-        borderRadius : BaseStyles.borderRadius.radiusSm,
+        borderRadius : BaseStyles.borderRadius.radiusLg,
         elevation : 5,
     },
     guessButton : {
