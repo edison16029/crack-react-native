@@ -21,7 +21,7 @@ function AppBarComponent(props) {
 
 const styles = StyleSheet.create({
     app_bar_container : {
-        flex : 1,
+        flex : 0.5,
         flexDirection : 'row-reverse',
         alignItems : 'flex-start',
         padding : padding.sm,

@@ -8,6 +8,7 @@ import AppBarComponent from './presentationalComponents/AppBarComponent'
 import GuessInputComponent from './presentationalComponents/GuessInputComponent'
 import GuessHistoryComponent from './presentationalComponents/GuessHistoryComponent'
 import GuessResultComponent from './presentationalComponents/GuessResultComponent'
+import CommentComponent from './presentationalComponents/CommentComponent';
 
 const mapStateToProps = (state) => {
     return {
@@ -71,6 +72,7 @@ class SinglePlayerGameComponent extends Component {
         return (
             <SafeAreaView style = {containerStyle}>
                 <AppBarComponent />
+                <CommentComponent response={this.state.guesses[0]} />
                 <GuessHistoryComponent guesses = {this.state.guesses.slice(1)}/>
                 <GuessResultComponent 
                     guess = {this.state.guesses.length > 0 ? this.state.guesses[0]['word'] : null}

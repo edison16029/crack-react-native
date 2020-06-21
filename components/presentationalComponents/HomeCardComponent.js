@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         width : BaseStyles.dimensions.fullWidth * 0.80,
         height : BaseStyles.dimensions.fullWidth * 0.80,
-        marginBottom : BaseStyles.padding.sm,
+        marginVertical : BaseStyles.padding.lg,
         paddingVertical : BaseStyles.padding.lg,
         paddingHorizontal : BaseStyles.padding.lg,
         elevation : 10
