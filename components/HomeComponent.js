@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View,Text,TouchableOpacity,TouchableNativeFeedback,TouchableHighlight } from 'react-native';
+import { View,TouchableNativeFeedback } from 'react-native';
 import * as Themes from '../styles/themes';
 //Redux
 import { connect } from 'react-redux';
@@ -10,9 +10,6 @@ import { setColors} from '../redux/actionCreators';
 import AppBarComponent from './presentationalComponents/AppBarComponent'; 
 import HomeCardComponent from './presentationalComponents/HomeCardComponent';
 import ButtonComponent from './presentationalComponents/ButtonComponent';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
 
 const mapStateToProps = (state) => {
     return {
@@ -87,7 +84,7 @@ class HomeComponent extends Component {
             alignItems : "center"
         }
         return (
-            <TouchableNativeFeedback onPress={this.onScreenPress}>
+            <TouchableNativeFeedback>
                 <View style={containerStyle} >
                     <AppBarComponent
                         onHowToPlayPress = {this.onHowToPlayPress}
