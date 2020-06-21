@@ -80,7 +80,7 @@ class HomeComponent extends Component {
     render() {
         const containerStyle = {
             flex : 10,
-            backgroundColor : this.props.theme.colors.primaryDark,
+            backgroundColor : this.props.theme.colors.primary,
             alignItems : "center"
         }
         return (
