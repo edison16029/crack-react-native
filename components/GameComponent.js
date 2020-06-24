@@ -11,7 +11,7 @@ function GameComponent(props) {
     }
     return (
         <View style={containerStyle}>
-            <SinglePlayerGameComponent />
+            <SinglePlayerGameComponent navigation = {props.navigation}/>
         </View>
     );
 }
