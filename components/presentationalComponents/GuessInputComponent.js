@@ -22,7 +22,7 @@ function GuessInputComponent(props)  {
         borderColor : theme.colors.accent}
     ])
     const guessButtonIcon = {color : theme.colors.accent}
-    const iconSize = BaseStyles.dimensions.fullWidth * 0.06
+    const iconSize = BaseStyles.dimensions.fullWidth * 0.07
 
     return (
         <View style = {styles.container}>

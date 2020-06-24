@@ -4,6 +4,7 @@ import CBCountComponent from './CBCountComponent'
 import * as BaseStyles from '../../styles/base'
 import {useSelector} from 'react-redux'
 import PropTypes from 'prop-types'
+import Icon from '../CustomIconComponent'
 
 function GuessResultComponent(props) {
     const {guess, cows, bulls} = props
@@ -19,15 +20,23 @@ function GuessResultComponent(props) {
     ])
     const iconSize = 40
 
-    return (
-        <View style = {cardContainer}>
-            <Text style = {font}>{guess}</Text>
-            <View style = {{flex : 1, alignItems : 'flex-start', justifyContent : 'space-around'}}>
-                <CBCountComponent iconName = {"crosshair"} iconSize = {iconSize} CBCount = {cows} />
-                <CBCountComponent iconName = {"bullseye"} iconSize = {iconSize} CBCount = {bulls} />
+    if(guess) { 
+        return (
+            <View style = {cardContainer}>
+                <Text style = {font}>{guess}</Text>
+                <View style = {{flex : 1, alignItems : 'flex-start', justifyContent : 'space-around'}}>
+                    <CBCountComponent iconName = {"crosshair"} iconSize = {iconSize} CBCount = {cows} />
+                    <CBCountComponent iconName = {"bullseye"} iconSize = {iconSize} CBCount = {bulls} />
+                </View>
             </View>
-        </View>
-    );
+        )
+    } else {
+        return (
+            <View style = {cardContainer}>
+                <Icon name = "logo" size = {64} style = {{color : theme.colors.accent}} />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
