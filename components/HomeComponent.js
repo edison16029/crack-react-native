@@ -36,7 +36,7 @@ class HomeComponent extends Component {
 
     componentDidMount(){
         // this.props.setTheme(Themes.skyTheme)
-        this.props.setColors(Themes.skyTheme.colors);
+        // this.props.setColors(Themes.skyTheme.colors);
     }
 
     onScreenPress() {
