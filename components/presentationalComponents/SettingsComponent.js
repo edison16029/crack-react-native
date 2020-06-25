@@ -16,15 +16,17 @@ function RenderColors(props){
         dispatch(setColors(color));
     }
     const setIcon = (colors) => {
-        if(theme.colors === colors){
+        if(theme.colors.primary === colors.primary){
             return(
                 <Icon color={colors.accent} name="check" 
-                type="font-awesome" size={15}
-            />
+                    type="font-awesome" size={15}
+                />
             )
         }
         else{
-            return( <></>)
+            return(
+                <></>
+            )
         }
     }
 
@@ -32,7 +34,7 @@ function RenderColors(props){
     const renderColor = (colors) => (
         <TouchableNativeFeedback onPress={() => {changeThemeColor(colors)}}>
             <View style={{width:30,height:30,justifyContent:'center',alignItems:'center',
-                borderColor:colors.accent,
+                borderColor:theme.colors.accent,
                 borderWidth : 1,
                 borderRadius:15,marginHorizontal : 2,
                 backgroundColor:colors.primary}}>

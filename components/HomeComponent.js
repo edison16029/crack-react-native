@@ -47,6 +47,9 @@ class HomeComponent extends Component {
     }
 
     onPlayPress() {
+        this.setState({
+            homeCardContent : 'logo'
+        })
         const { navigation } = this.props;
         console.log(" [HomeComponent.js ] " + "Play Pressed");
         navigation.navigate('Game');
