@@ -131,6 +131,8 @@ function SettingsComponent(props){
                 <View style={rowStyle}>
                     <Text style={textStyle}>Sound</Text>                
                     <Switch
+                        trackColor={{ true: ThemeColours.jungleTheme.colors.primary, false:'#d3d3d3'  }}
+                        thumbColor={'#ffffff'}
                         onValueChange={toggleSound}
                         value={soundValue} />
                 </View>
@@ -140,6 +142,8 @@ function SettingsComponent(props){
                 <View style={rowStyle}>
                     <Text style={textStyle}>Vibrate</Text>                
                     <Switch
+                        trackColor={{ true: ThemeColours.jungleTheme.colors.primary, false:'#d3d3d3'  }}
+                        thumbColor={'#ffffff'}
                         onValueChange={toggleVibrate}
                         value={vibrateValue} />
                 </View>
