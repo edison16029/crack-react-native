@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     },
     textStyle : {
         textAlign : 'center',
-        fontSize : BaseStyles.fonts.lg
+        fontSize : BaseStyles.fonts.lg,
+        fontFamily : BaseStyles.fonts.primary
     }
 })
 
