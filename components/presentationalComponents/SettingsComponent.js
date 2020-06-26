@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSound, setVibrate} from '../../redux/actionCreators';
 import { setColors } from '../../redux/actionCreators';
 import Icon from 'react-native-vector-icons/FontAwesome5' ;
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { TouchableNativeFeedback, TouchableOpacity } from 'react-native-gesture-handler';
 
 function RenderColors(props){
     const theme = useSelector(state => state.theme);
@@ -67,6 +67,13 @@ function SettingsComponent(props){
 
     }
 
+    const closeButtonContainerStyle = {
+        flex : 0.1,
+        marginTop : (-1 * BaseStyles.margin.lg)  + BaseStyles.margin.sm,
+        marginRight : (-1 * BaseStyles.margin.lg)  + BaseStyles.margin.sm,
+        alignItems : "flex-end"
+    }
+
     const rowContainerStyle = {
         flex : 0.33,
         justifyContent : 'center',
@@ -107,8 +114,19 @@ function SettingsComponent(props){
             dispatch(setVibrate(true));
         }
     }
+    const closeButtonSize = BaseStyles.dimensions.fullWidth * 0.07;
     return(
         <View style={containerStyle}>
+            <View style={closeButtonContainerStyle}>
+                <TouchableOpacity>
+                    <Icon color={theme.colors.accent} name="times-circle" 
+                            type="font-awesome" size={closeButtonSize}
+                            onPress = {props.onClosePress}
+                        />
+                </TouchableOpacity>
+
+            </View>
+
             <View style={rowContainerStyle}>
                 <View style={rowStyle}>
                     <Text style={textStyle}>Sound</Text>                
