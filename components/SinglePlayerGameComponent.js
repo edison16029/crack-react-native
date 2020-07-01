@@ -10,6 +10,8 @@ import WinnerScreenComponent from './presentationalComponents/WinnerScreenCompon
 import GuessHistoryComponent from './presentationalComponents/GuessHistoryComponent'
 import GuessResultComponent from './presentationalComponents/GuessResultComponent'
 import CommentComponent from './presentationalComponents/CommentComponent';
+import { KeyboardAvoidingView, View, Alert, BackHandler } from 'react-native';
+import ExitButtonComponent from './presentationalComponents/ExitButtonComponent';
 
 const mapStateToProps = (state) => {
     return {
@@ -24,13 +26,19 @@ class SinglePlayerGameComponent extends Component {
         this.state = {
             id : 0,
             input : "",
+            isLastGuessWord : true,
             targetWord : {}, 
             guesses : [], // array of {id : X, $WO, cows : X, bulls : X}
         };
+        this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.handleExitButtonPress)
     }
 
     componentDidMount() {
         fetchTargetWord("easy", this.handleFetchTargetWord)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener("hardwareBackPress", this.handleExitButtonPress)
     }
 
     //HANDLERS FOR UI
@@ -47,20 +55,60 @@ class SinglePlayerGameComponent extends Component {
 
     handleHomeButtonPress = () => {
         const { navigation } = this.props
-        console.log("[SinglePlayerGameComponent.js ] " + "Home Button Pressed")
+        console.log("[SinglePlayerGameComponent.js] " + "Home Button Pressed")
         navigation.navigate('Home')
     }
 
     handleRestartButtonPress = () => {
-        //handle restart game
-        console.log("[SinglePlayerGameComponent.js ] " + "Restart Button Pressed")
+        console.log("[SinglePlayerGameComponent.js] " + "Restart Button Pressed")
         this.setState({            
             id : 0,
             input : "",
+            isLastGuessWord : true,
             targetWord : {}, 
             guesses : [],
         })
         fetchTargetWord("easy", this.handleFetchTargetWord)
+    }
+
+    handleExitButtonPress = () => {
+        console.log("[SinglePlayerGameComponent.js] Exit Button Pressed")
+        if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
+            this.props.navigation.navigate('Home')
+        } else {
+            Alert.alert(
+                "Quit Game",
+                "Do you wish to quit?",
+                [
+                    {
+                        text : "Confirm",
+                        onPress : () =>  {
+                            console.log("[SinglePlayerGameComponent.js] Exit Confirm Pressed")
+                            Alert.alert(
+                                "Quit Game",
+                                "The word to be cracked was " + this.state.targetWord['word'].toUpperCase(),
+                                [
+                                    {
+                                        text : "Ok",
+                                        onPress : () => {
+                                            this.props.navigation.navigate('Home')
+                                        }
+                                    }
+                                ],
+                                {cancelable : false}
+                                )
+                           // this.props.navigation.navigate('Home')
+                        }
+                    },
+                    {
+                        text : "Cancel",
+                        onPress : () => console.log("[SinglePlayerGameComponent.js] Exit Cancel Pressed"),
+                        style : "cancel",
+                    }
+                ],
+            )
+        }
+        return true
     }
 
     //HANDLERS FOR SERVER FETCH
@@ -76,10 +124,12 @@ class SinglePlayerGameComponent extends Component {
                 const guesses = [{
                     id : prevState.id,
                     ...response}, ...prevState.guesses] 
-                return {guesses, id : prevState.id + 1}
+                return {guesses, id : prevState.id + 1, isLastGuessWord : true}
             })
         }
-        // else handle error
+        else {
+            this.setState({isLastGuessWord : false})
+        }
     }
 
 
@@ -88,23 +138,27 @@ class SinglePlayerGameComponent extends Component {
             flex : 1,
             backgroundColor : this.props.theme.colors.primary,
         }
-        if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] == 4) {
+        if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
             return (
-                <SafeAreaView style = {containerStyle}>
-                    <AppBarComponent />
-                    <CommentComponent response={this.state.guesses[0]} />
+                <View style = {containerStyle}>
+                    <ExitButtonComponent handleExitButtonPress = {this.handleExitButtonPress}/>
+                    <CommentComponent response={this.state.guesses[0]} isLastGuessWord = {this.state.isLastGuessWord}/>
                     <GuessHistoryComponent guesses = {this.state.guesses}/> 
                     <WinnerScreenComponent 
                         guess = {this.state.guesses[0]['word']}
                         handleHomeButtonPress = {this.handleHomeButtonPress}
                         handleRestartButtonPress = {this.handleRestartButtonPress} /> 
-                </SafeAreaView>
+                </View>
             )
         } else {
             return (
-                <SafeAreaView style = {containerStyle}>
-                    <AppBarComponent />
-                    <CommentComponent response={this.state.guesses[0]} />
+                // <View style = {containerStyle}>
+                <KeyboardAvoidingView style = {{flex : 6}} behavior = {"height"} keyboardVerticalOffset = {32}>
+                    <ExitButtonComponent handleExitButtonPress = {this.handleExitButtonPress}/>
+                    <CommentComponent 
+                        response={this.state.guesses[0]} 
+                        isLastGuessWord = {this.state.isLastGuessWord}
+                        isRender = {this.state.input === '' ? true : false}/>
                     <GuessHistoryComponent guesses = {this.state.guesses.slice(1)}/>
                     <GuessResultComponent 
                         guess = {this.state.guesses.length > 0 ? this.state.guesses[0]['word'] : null}
@@ -114,7 +168,8 @@ class SinglePlayerGameComponent extends Component {
                         input = {this.state.input}
                         handleChangeText = {this.handleChangeText}
                         handleGuessButtonPress = {this.handleGuessButtonPress}/>
-                </SafeAreaView>
+                </KeyboardAvoidingView>
+                // </View>
             );
         }
     }

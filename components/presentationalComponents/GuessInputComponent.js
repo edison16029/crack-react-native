@@ -11,17 +11,20 @@ function GuessInputComponent(props)  {
     const {input, handleChangeText, handleGuessButtonPress} = props;
     const theme = useSelector(state => state.theme);
 
+    const isGuessButtonDisabled = input.length < 4 ? true : false
+    const guessButtonColour = isGuessButtonDisabled ? theme.colors.primaryDark : theme.colors.accent
     const textInput = StyleSheet.flatten([
         styles.textInput, 
         {backgroundColor : theme.colors.primaryDark, 
         color : theme.colors.accent}
     ])
+        
     const guessButton = StyleSheet.flatten([
         styles.guessButton, 
         {backgroundColor : theme.colors.primary,
-        borderColor : theme.colors.accent}
+        borderColor : guessButtonColour}
     ])
-    const guessButtonIcon = {color : theme.colors.accent}
+    const guessButtonIcon = {color : guessButtonColour}
     const iconSize = BaseStyles.dimensions.fullWidth * 0.07
 
     return (
@@ -30,7 +33,7 @@ function GuessInputComponent(props)  {
                 value={input} onChangeText = {handleChangeText} style = {textInput} maxLength = {4}
                 placeholder = ". . . ." autoCapitalize = {'characters'} placeholderTextColor = {theme.colors.accent} />
              
-            <TouchableOpacity style = {guessButton} onPress = {handleGuessButtonPress}>
+            <TouchableOpacity style = {guessButton} onPress = {handleGuessButtonPress} disabled = {isGuessButtonDisabled}>
                 <Icon style = {guessButtonIcon} size = {iconSize} name = "arrow-up" type = "font-awesome"/>
                 {/* <Icon style = {guessButtonIcon} size = {iconSize} name = "bullseye" /> */}
             </TouchableOpacity>
@@ -44,6 +47,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
+        paddingVertical : BaseStyles.margin.sm,
     },
     textInput : {
         width : BaseStyles.dimensions.fullWidth * 0.33,
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'center',
         borderRadius : (BaseStyles.dimensions.fullWidth*0.11)/2,
-        borderWidth : 2.5,
+        borderWidth : 3,
         elevation : 5,
     },
 });

@@ -27,7 +27,7 @@
         "xxhdpi": "./assets/img/splash/splash-xxhdpi.png",
         "xxxhdpi": "./assets/img/splash/splash-xxxhdpi.png",
         "resizeMode": "contain"
-      }
+      },
     }
   }
 }
