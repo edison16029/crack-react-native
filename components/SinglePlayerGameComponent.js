@@ -27,6 +27,7 @@ class SinglePlayerGameComponent extends Component {
             id : 0,
             input : "",
             isLastGuessWord : true,
+            renderComment : true,
             targetWord : {}, 
             guesses : [], // array of {id : X, $WO, cows : X, bulls : X}
         };
@@ -43,13 +44,13 @@ class SinglePlayerGameComponent extends Component {
 
     //HANDLERS FOR UI
     handleChangeText = (text) => {
-        this.setState({input : text});
+        this.setState({input : text, renderComment : false});
     }
 
     handleGuessButtonPress = () => {
         if(this.state.input.length == 4) {
             fetchGuessResult(this.state.targetWord['word'], this.state.input.toLowerCase(), this.handleFetchGuessResult)
-            this.setState({input : ""})
+            this.setState({input : "", renderComment : true})
         }
     };
 
@@ -65,6 +66,7 @@ class SinglePlayerGameComponent extends Component {
             id : 0,
             input : "",
             isLastGuessWord : true,
+            renderComment : true,
             targetWord : {}, 
             guesses : [],
         })
@@ -145,7 +147,7 @@ class SinglePlayerGameComponent extends Component {
                     <CommentComponent 
                         response={this.state.guesses[0]} 
                         isLastGuessWord = {this.state.isLastGuessWord}
-                        isRender = {this.state.input === '' ? true : false} />
+                        isRender = {this.state.renderComment} />
                     <GuessHistoryComponent guesses = {this.state.guesses}/> 
                     <WinnerScreenComponent 
                         guess = {this.state.guesses[0]['word']}
@@ -161,7 +163,7 @@ class SinglePlayerGameComponent extends Component {
                     <CommentComponent 
                         response={this.state.guesses[0]} 
                         isLastGuessWord = {this.state.isLastGuessWord}
-                        isRender = {this.state.input === '' ? true : false}/>
+                        isRender = {this.state.renderComment}/>
                     <GuessHistoryComponent guesses = {this.state.guesses.slice(1)}/>
                     <GuessResultComponent 
                         guess = {this.state.guesses.length > 0 ? this.state.guesses[0]['word'] : null}
