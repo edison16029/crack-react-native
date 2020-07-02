@@ -12,22 +12,22 @@ function HomeCardComponent(props) {
     // console.log(" [HomeCardComponent.js] " , theme);
     if(props.content === 'settings')
         return (
-            <TouchableOpacity onPress={() => {console.log("Hello")}}style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
-                <SettingsComponent />
-            </TouchableOpacity>
+            <View style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
+                <SettingsComponent onClosePress={props.onClosePress}/>
+            </View>
         )
     else if(props.content === 'howToPlay'){
         return (
-            <TouchableOpacity style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
+            <View style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
                 <Text>How To Play</Text>
-            </TouchableOpacity>
+            </View>
         )
     }
     else{
         return (
-            <TouchableOpacity style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
+            <View style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
                 <LogoComponent />
-            </TouchableOpacity>
+            </View>
         )
     }
 }

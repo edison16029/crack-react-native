@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     button_text : {
         color : BaseStyles.defaultColors.accent,
         fontSize : BaseStyles.dimensions.fullWidth * 0.40 * 0.15,
-        fontFamily : 'serif'
+        fontFamily : BaseStyles.fonts.primary
     },
 })
 

@@ -31,7 +31,8 @@ class HomeComponent extends Component {
         this.onPlayPress = this.onPlayPress.bind(this);
         this.onHowToPlayPress = this.onHowToPlayPress.bind(this);
         this.onSettingsPress = this.onSettingsPress.bind(this);
-        this.onScreenPress = this.onScreenPress.bind(this);
+        this.onClosePress = this.onClosePress.bind(this);
+        
     }
 
     componentDidMount(){
@@ -39,11 +40,11 @@ class HomeComponent extends Component {
         // this.props.setColors(Themes.skyTheme.colors);
     }
 
-    onScreenPress() {
-        console.log(" [ HomeComponent.js ] " + "Screen Pressed");
-        // this.setState({
-        //     homeCardContent : 'logo'
-        // })
+    onClosePress() {
+        console.log(" [ HomeComponent.js ] " + "Close Pressed");
+        this.setState({
+            homeCardContent : 'logo'
+        })
     }
 
     onPlayPress() {
@@ -94,6 +95,7 @@ class HomeComponent extends Component {
                         onSettingsPress = {this.onSettingsPress} />
                         
                         <HomeCardComponent
+                            onClosePress = {this.onClosePress}
                             content = {this.state.homeCardContent} />
 
                     <View style={{flex : 5,alignItems:'center',justifyContent:'space-evenly'}}>
