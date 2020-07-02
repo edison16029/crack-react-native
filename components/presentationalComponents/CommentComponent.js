@@ -31,7 +31,6 @@ function getComment(guess, isLastGuessWord){
 function CommentComponent(props){
     const {response, isLastGuessWord, isRender} = props;
     const theme = useSelector( state => state.theme);
-    console.log("[CommentComponent.js] isLastGuessWord : " + isLastGuessWord)
     const text = getComment(response, isLastGuessWord);
     return (
         <View style={[styles.container,{backgroundColor : theme.colors.primary}]}>
