@@ -10,6 +10,7 @@ import WinnerScreenComponent from './presentationalComponents/WinnerScreenCompon
 import GuessHistoryComponent from './presentationalComponents/GuessHistoryComponent'
 import GuessResultComponent from './presentationalComponents/GuessResultComponent'
 import CommentComponent from './presentationalComponents/CommentComponent';
+import KeyboardComponent from './presentationalComponents/KeyboardComponent';
 import { KeyboardAvoidingView, View, Alert, BackHandler } from 'react-native';
 import ExitButtonComponent from './presentationalComponents/ExitButtonComponent';
 
@@ -134,6 +135,13 @@ class SinglePlayerGameComponent extends Component {
         }
     }
 
+    handleKeyPress = (key) => {
+        console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
+        this.setState( (prevState) => {
+            return {input : prevState.input+key,renderComment : false}
+        })
+    }
+
 
     render() {
         const containerStyle = {
@@ -173,6 +181,7 @@ class SinglePlayerGameComponent extends Component {
                         input = {this.state.input}
                         handleChangeText = {this.handleChangeText}
                         handleGuessButtonPress = {this.handleGuessButtonPress}/>
+                    <KeyboardComponent onKeyPress={this.handleKeyPress} input={this.state.input}/>
                 </KeyboardAvoidingView>
                 // </View>
             );
