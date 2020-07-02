@@ -142,7 +142,10 @@ class SinglePlayerGameComponent extends Component {
             return (
                 <View style = {containerStyle}>
                     <ExitButtonComponent handleExitButtonPress = {this.handleExitButtonPress}/>
-                    <CommentComponent response={this.state.guesses[0]} isLastGuessWord = {this.state.isLastGuessWord}/>
+                    <CommentComponent 
+                        response={this.state.guesses[0]} 
+                        isLastGuessWord = {this.state.isLastGuessWord}
+                        isRender = {this.state.input === '' ? true : false} />
                     <GuessHistoryComponent guesses = {this.state.guesses}/> 
                     <WinnerScreenComponent 
                         guess = {this.state.guesses[0]['word']}

@@ -33,7 +33,7 @@ function GuessResultComponent(props) {
     } else {
         return (
             <View style = {cardContainer}>
-                <Icon name = "logo" size = {128} style = {{color : theme.colors.accent}} />
+                <Icon name = "logo" size = {108} style = {{color : theme.colors.accent}} />
             </View>
         );
     }
