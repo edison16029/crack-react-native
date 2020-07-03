@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View,TouchableNativeFeedback } from 'react-native';
+import { View,TouchableNativeFeedback,BackHandler } from 'react-native';
 import * as Themes from '../styles/themes';
 //Redux
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ import { setColors} from '../redux/actionCreators';
 import AppBarComponent from './presentationalComponents/AppBarComponent'; 
 import HomeCardComponent from './presentationalComponents/HomeCardComponent';
 import ButtonComponent from './presentationalComponents/ButtonComponent';
+import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
 
 const mapStateToProps = (state) => {
     return {
@@ -27,17 +28,23 @@ class HomeComponent extends Component {
         super(props);
         this.state = {  
             homeCardContent : 'logo',
+            showExitAlert : false,
         };
         this.onPlayPress = this.onPlayPress.bind(this);
         this.onHowToPlayPress = this.onHowToPlayPress.bind(this);
         this.onSettingsPress = this.onSettingsPress.bind(this);
         this.onClosePress = this.onClosePress.bind(this);
+        this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.handleExitButtonPress);
         
     }
 
     componentDidMount(){
         // this.props.setTheme(Themes.skyTheme)
         // this.props.setColors(Themes.skyTheme.colors);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener("hardwareBackPress", this.handleExitButtonPress)
     }
 
     onClosePress() {
@@ -81,6 +88,29 @@ class HomeComponent extends Component {
             })
         }
     }
+
+    handleExitButtonPress = () => {
+        console.log(" [HomeComponent.js] " + "Exit Button Pressed...")
+        this.showExitAlert()
+        return true; //Prevents popping up the stack
+    }
+
+    //ALERT HANDLERS
+    //Exit Alert
+    showExitAlert = () => {
+        this.setState({showExitAlert : true})
+    }
+    hideExitAlert = () => {
+        this.setState({showExitAlert : false})
+    }
+    onPressExitPositiveButton = () => {
+        this.hideExitAlert()
+        BackHandler.exitApp();
+    }
+    onPressExitNegativeButton = () => {
+        this.hideExitAlert()
+    }
+
     render() {
         const containerStyle = {
             flex : 10,
@@ -101,7 +131,20 @@ class HomeComponent extends Component {
                     <View style={{flex : 5,alignItems:'center',justifyContent:'space-evenly'}}>
                         <ButtonComponent onPress={this.onPlayPress}/>
                     </View>
+
+                    <CustomAlertComponent 
+                        displayAlert={this.state.showExitAlert} 
+                        displayAlertIcon={false} 
+                        alertTitleText={"Exit App"} 
+                        alertMessageText={"Do you wish to exit the app?"} 
+                        displayPositiveButton={true} 
+                        positiveButtonText={"EXIT"} 
+                        displayNegativeButton={true} 
+                        negativeButtonText={"CANCEL"}
+                        onPressNegativeButton = {this.onPressExitNegativeButton} 
+                        onPressPositiveButton = {this.onPressExitPositiveButton}/> 
                 </View>
+
             </TouchableNativeFeedback>
 
         );
