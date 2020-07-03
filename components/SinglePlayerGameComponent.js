@@ -31,7 +31,8 @@ class SinglePlayerGameComponent extends Component {
             renderComment : true,
             targetWord : {}, 
             guesses : [], // array of {id : X, $WO, cows : X, bulls : X}
-            showAlert : false
+            showExitAlert : false,
+            showSurrenderAlert : false,
         };
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.handleExitButtonPress)
     }
@@ -45,21 +46,33 @@ class SinglePlayerGameComponent extends Component {
     }
 
     //ALERT HANDLERS
-    showAlert = () => {
-        this.setState({showAlert : true})
+    //Exit Alert
+    showExitAlert = () => {
+        this.setState({showExitAlert : true})
     }
-
-    hideAlert = () => {
-        this.setState({showAlert : false})
+    hideExitAlert = () => {
+        this.setState({showExitAlert : false})
     }
-
-    onPressPositiveButton = () => {
-        this.hideAlert()
+    onPressExitPositiveButton = () => {
+        this.hideExitAlert()
         this.props.navigation.navigate("Home")
     }
-
-    onPressNegativeButton = () => {
-        this.hideAlert()
+    onPressExitNegativeButton = () => {
+        this.hideExitAlert()
+    }
+    //Surrender Alert
+    showSurrenderAlert = () => {
+        this.setState({showSurrenderAlert : true})
+    }
+    hideSurrenderAlert = () => {
+        this.setState({showSurrenderAlert : false})
+    }
+    onPressSurrenderPositiveButton = () => {
+        this.hideSurrenderAlert()
+        // Add code to display gave up winner component
+    }
+    onPressSurrenderNegativeButton = () => {
+        this.hideSurrenderAlert()
     }
 
     //HANDLERS FOR UI
@@ -98,7 +111,7 @@ class SinglePlayerGameComponent extends Component {
         if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
             this.props.navigation.navigate('Home')
         } else {
-            this.showAlert()
+            this.showExitAlert()
             // Alert.alert(
             //     "Quit Game",
             //     "Do you wish to quit?",
@@ -134,6 +147,11 @@ class SinglePlayerGameComponent extends Component {
         return true
     }
 
+    handleSurrenderButtonPress = () => {
+        console.log("[SinglePlayerGameComponent.js] Surrender Button Pressed")
+        this.showSurrenderAlert()
+    }
+
     //HANDLERS FOR SERVER FETCH
     handleFetchTargetWord = (response) => {
         console.log("[SinglePlayerGameComponent.js] TargetWord : " + JSON.stringify(response))
@@ -164,7 +182,9 @@ class SinglePlayerGameComponent extends Component {
         if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
             return (
                 <View style = {containerStyle}>
-                    <AppBarGameComponent handleExitButtonPress = {this.handleExitButtonPress}/>
+                    <AppBarGameComponent 
+                        handleExitButtonPress = {this.handleExitButtonPress}
+                        handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 
                         response={this.state.guesses[0]} 
                         isLastGuessWord = {this.state.isLastGuessWord}
@@ -180,7 +200,9 @@ class SinglePlayerGameComponent extends Component {
             return (
                 // <View style = {containerStyle}>
                 <KeyboardAvoidingView style = {{flex : 6}} behavior = {"height"} keyboardVerticalOffset = {32}>
-                    <AppBarGameComponent handleExitButtonPress = {this.handleExitButtonPress}/>
+                    <AppBarGameComponent 
+                        handleExitButtonPress = {this.handleExitButtonPress}
+                        handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 
                         response={this.state.guesses[0]} 
                         isLastGuessWord = {this.state.isLastGuessWord}
@@ -196,7 +218,7 @@ class SinglePlayerGameComponent extends Component {
                         handleGuessButtonPress = {this.handleGuessButtonPress}/>
                         
                     <CustomAlertComponent 
-                        displayAlert={this.state.showAlert} 
+                        displayAlert={this.state.showExitAlert} 
                         displayAlertIcon={false} 
                         alertTitleText={"Quit Game"} 
                         alertMessageText={"Do you wish to quit?"} 
@@ -204,8 +226,20 @@ class SinglePlayerGameComponent extends Component {
                         positiveButtonText={"QUIT"} 
                         displayNegativeButton={true} 
                         negativeButtonText={"CANCEL"}
-                        onPressNegativeButton = {this.onPressNegativeButton} 
-                        onPressPositiveButton = {this.onPressPositiveButton}/> 
+                        onPressNegativeButton = {this.onPressExitNegativeButton} 
+                        onPressPositiveButton = {this.onPressExitPositiveButton}/> 
+
+                    <CustomAlertComponent 
+                        displayAlert={this.state.showSurrenderAlert} 
+                        displayAlertIcon={false} 
+                        alertTitleText={"Give Up"} 
+                        alertMessageText={"Are you sure you want to give up?"} 
+                        displayPositiveButton={true} 
+                        positiveButtonText={"GIVE UP"} 
+                        displayNegativeButton={true} 
+                        negativeButtonText={"CANCEL"}
+                        onPressNegativeButton = {this.onPressSurrenderNegativeButton} 
+                        onPressPositiveButton = {this.onPressSurrenderPositiveButton}/>                     
                 </KeyboardAvoidingView>
                 // </View>
             );
