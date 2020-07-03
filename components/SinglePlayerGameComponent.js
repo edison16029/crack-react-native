@@ -11,7 +11,8 @@ import GuessHistoryComponent from './presentationalComponents/GuessHistoryCompon
 import GuessResultComponent from './presentationalComponents/GuessResultComponent'
 import CommentComponent from './presentationalComponents/CommentComponent';
 import { KeyboardAvoidingView, View, Alert, BackHandler } from 'react-native';
-import ExitButtonComponent from './presentationalComponents/ExitButtonComponent';
+import AppBarGameComponent from './presentationalComponents/AppBarGameComponent';
+import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
 
 const mapStateToProps = (state) => {
     return {
@@ -30,6 +31,7 @@ class SinglePlayerGameComponent extends Component {
             renderComment : true,
             targetWord : {}, 
             guesses : [], // array of {id : X, $WO, cows : X, bulls : X}
+            showAlert : false
         };
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.handleExitButtonPress)
     }
@@ -40,6 +42,24 @@ class SinglePlayerGameComponent extends Component {
 
     componentWillUnmount() {
         BackHandler.removeEventListener("hardwareBackPress", this.handleExitButtonPress)
+    }
+
+    //ALERT HANDLERS
+    showAlert = () => {
+        this.setState({showAlert : true})
+    }
+
+    hideAlert = () => {
+        this.setState({showAlert : false})
+    }
+
+    onPressPositiveButton = () => {
+        this.hideAlert()
+        this.props.navigation.navigate("Home")
+    }
+
+    onPressNegativeButton = () => {
+        this.hideAlert()
     }
 
     //HANDLERS FOR UI
@@ -78,37 +98,38 @@ class SinglePlayerGameComponent extends Component {
         if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
             this.props.navigation.navigate('Home')
         } else {
-            Alert.alert(
-                "Quit Game",
-                "Do you wish to quit?",
-                [
-                    {
-                        text : "Confirm",
-                        onPress : () =>  {
-                            console.log("[SinglePlayerGameComponent.js] Exit Confirm Pressed")
-                            Alert.alert(
-                                "Quit Game",
-                                "The word to be cracked was " + this.state.targetWord['word'].toUpperCase(),
-                                [
-                                    {
-                                        text : "Ok",
-                                        onPress : () => {
-                                            this.props.navigation.navigate('Home')
-                                        }
-                                    }
-                                ],
-                                {cancelable : false}
-                                )
-                           // this.props.navigation.navigate('Home')
-                        }
-                    },
-                    {
-                        text : "Cancel",
-                        onPress : () => console.log("[SinglePlayerGameComponent.js] Exit Cancel Pressed"),
-                        style : "cancel",
-                    }
-                ],
-            )
+            this.showAlert()
+            // Alert.alert(
+            //     "Quit Game",
+            //     "Do you wish to quit?",
+            //     [
+            //         {
+            //             text : "Confirm",
+            //             onPress : () =>  {
+            //                 console.log("[SinglePlayerGameComponent.js] Exit Confirm Pressed")
+            //                 Alert.alert(
+            //                     "Quit Game",
+            //                     "The word to be cracked was " + this.state.targetWord['word'].toUpperCase(),
+            //                     [
+            //                         {
+            //                             text : "Ok",
+            //                             onPress : () => {
+            //                                 this.props.navigation.navigate('Home')
+            //                             }
+            //                         }
+            //                     ],
+            //                     {cancelable : false}
+            //                     )
+            //                // this.props.navigation.navigate('Home')
+            //             }
+            //         },
+            //         {
+            //             text : "Cancel",
+            //             onPress : () => console.log("[SinglePlayerGameComponent.js] Exit Cancel Pressed"),
+            //             style : "cancel",
+            //         }
+            //     ],
+            // )
         }
         return true
     }
@@ -143,7 +164,7 @@ class SinglePlayerGameComponent extends Component {
         if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
             return (
                 <View style = {containerStyle}>
-                    <ExitButtonComponent handleExitButtonPress = {this.handleExitButtonPress}/>
+                    <AppBarGameComponent handleExitButtonPress = {this.handleExitButtonPress}/>
                     <CommentComponent 
                         response={this.state.guesses[0]} 
                         isLastGuessWord = {this.state.isLastGuessWord}
@@ -159,7 +180,7 @@ class SinglePlayerGameComponent extends Component {
             return (
                 // <View style = {containerStyle}>
                 <KeyboardAvoidingView style = {{flex : 6}} behavior = {"height"} keyboardVerticalOffset = {32}>
-                    <ExitButtonComponent handleExitButtonPress = {this.handleExitButtonPress}/>
+                    <AppBarGameComponent handleExitButtonPress = {this.handleExitButtonPress}/>
                     <CommentComponent 
                         response={this.state.guesses[0]} 
                         isLastGuessWord = {this.state.isLastGuessWord}
@@ -173,6 +194,18 @@ class SinglePlayerGameComponent extends Component {
                         input = {this.state.input}
                         handleChangeText = {this.handleChangeText}
                         handleGuessButtonPress = {this.handleGuessButtonPress}/>
+                        
+                    <CustomAlertComponent 
+                        displayAlert={this.state.showAlert} 
+                        displayAlertIcon={false} 
+                        alertTitleText={"Quit Game"} 
+                        alertMessageText={"Do you wish to quit?"} 
+                        displayPositiveButton={true} 
+                        positiveButtonText={"QUIT"} 
+                        displayNegativeButton={true} 
+                        negativeButtonText={"CANCEL"}
+                        onPressNegativeButton = {this.onPressNegativeButton} 
+                        onPressPositiveButton = {this.onPressPositiveButton}/> 
                 </KeyboardAvoidingView>
                 // </View>
             );

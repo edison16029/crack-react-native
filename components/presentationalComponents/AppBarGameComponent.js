@@ -5,7 +5,7 @@ import * as BaseStyles from '../../styles/base';
 import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function ExitButtonComponent(props) {
+function AppBarGameComponent(props) {
     const {handleExitButtonPress} = props
     const theme = useSelector(state => state.theme)
 
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ExitButtonComponent;
+export default AppBarGameComponent;
