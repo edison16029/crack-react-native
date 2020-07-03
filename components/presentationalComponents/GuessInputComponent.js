@@ -12,7 +12,7 @@ function GuessInputComponent(props)  {
     const theme = useSelector(state => state.theme);
 
     const isGuessButtonDisabled = input.length < 4 ? true : false
-    const guessButtonColour = isGuessButtonDisabled ? theme.colors.primaryDark : theme.colors.accent
+    const guessButtonColour = isGuessButtonDisabled ? theme.colors.primary : theme.colors.accent
     const textInput = StyleSheet.flatten([
         styles.textInput, 
         {backgroundColor : theme.colors.primaryDark, 
@@ -21,8 +21,9 @@ function GuessInputComponent(props)  {
         
     const guessButton = StyleSheet.flatten([
         styles.guessButton, 
-        {backgroundColor : theme.colors.primary,
-        borderColor : guessButtonColour}
+        {backgroundColor : theme.colors.primaryDark,
+        borderColor : isGuessButtonDisabled ? theme.colors.primary: theme.colors.accent,
+        elevation : isGuessButtonDisabled ? 0 : 5}
     ])
     const guessButtonIcon = {color : guessButtonColour}
     const iconSize = BaseStyles.dimensions.fullWidth * 0.07
@@ -30,9 +31,9 @@ function GuessInputComponent(props)  {
     return (
         <View style = {styles.container}>
             <TextInput 
-                value={input} onChangeText = {handleChangeText} style = {textInput} maxLength = {4}
+                value={input} onChangeText = {handleChangeText} style = {textInput} maxLength = {4} editable = {false}
                 placeholder = ". . . ." autoCapitalize = {'characters'} placeholderTextColor = {theme.colors.accent} />
-             
+
             <TouchableOpacity style = {guessButton} onPress = {handleGuessButtonPress} disabled = {isGuessButtonDisabled}>
                 <Icon style = {guessButtonIcon} size = {iconSize} name = "arrow-up" type = "font-awesome"/>
                 {/* <Icon style = {guessButtonIcon} size = {iconSize} name = "bullseye" /> */}
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        paddingVertical : BaseStyles.margin.sm,
+        paddingTop : BaseStyles.margin.md,
     },
     textInput : {
         width : BaseStyles.dimensions.fullWidth * 0.33,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'center',
         borderRadius : (BaseStyles.dimensions.fullWidth*0.11)/2,
-        borderWidth : 3,
+        borderWidth : 1.5,
         elevation : 5,
     },
 });

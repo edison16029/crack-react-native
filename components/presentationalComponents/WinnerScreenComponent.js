@@ -26,11 +26,12 @@ function WinnerScreenComponent(props) {
     ])
     const iconSize = BaseStyles.dimensions.fullWidth * 0.06
     const iconStyle = {color : theme.colors.accent}
+    const bannerSize = BaseStyles.dimensions.fullWidth * 0.26
     console.log("[WinnerScreenComponent.js] Target word guessed")
     return (
         <View style = {cardContainer}>
             <Text style = {font}>{guess}</Text>
-            <CustomIcon name = {"banner"} size = {96} style = {iconStyle}/> 
+            <CustomIcon name = {"banner"} size = {bannerSize} style = {iconStyle}/> 
             <View style = {styles.iconRow} >
                 <TouchableOpacity style = {iconButton} onPress = {handleHomeButtonPress}>
                     <Icon name = "home" type = "font-awesome" size = {iconSize} style = {iconStyle} />
@@ -45,7 +46,7 @@ function WinnerScreenComponent(props) {
 
 const styles = StyleSheet.create({
     cardContainer : {
-        flex : 2,
+        flex : 3,
         justifyContent : 'center',
         alignItems : 'center',
         marginTop : BaseStyles.margin.sm,

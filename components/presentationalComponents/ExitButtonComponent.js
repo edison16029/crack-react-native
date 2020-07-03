@@ -13,7 +13,7 @@ function ExitButtonComponent(props) {
     return (
         <View style={styles.app_bar_container}>
             <TouchableOpacity onPress = {handleExitButtonPress}>
-                <Icon color={theme.colors.accent} name="times" 
+                <Icon color={theme.colors.accent} name="times-circle" 
                     type="font-awesome" size={iconSize} style={styles.app_bar_icons}
                     onPress = {props.onSettingsPress}/>
             </TouchableOpacity>

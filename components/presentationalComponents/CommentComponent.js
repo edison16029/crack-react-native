@@ -43,12 +43,13 @@ function CommentComponent(props){
 
 const styles = StyleSheet.create({
     container : {
+        flex : 1,
         paddingHorizontal : BaseStyles.padding.lg,
-        paddingVertical : BaseStyles.margin.md,       
+        paddingBottom : BaseStyles.margin.md,       
     },
     textStyle : {
         textAlign : 'center',
-        fontSize : BaseStyles.fonts.lg,
+        fontSize : BaseStyles.fonts.lg * 0.8,
         fontFamily : BaseStyles.fonts.primary,
     }
 })

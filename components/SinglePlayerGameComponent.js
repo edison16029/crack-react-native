@@ -142,6 +142,12 @@ class SinglePlayerGameComponent extends Component {
         })
     }
 
+    handleBackspacePress = () => {
+        this.setState( (prevState) => {
+            return {input : prevState.input.slice(0,-1), renderComment : false}
+        })
+    }
+
 
     render() {
         const containerStyle = {
@@ -165,8 +171,8 @@ class SinglePlayerGameComponent extends Component {
             )
         } else {
             return (
-                // <View style = {containerStyle}>
-                <KeyboardAvoidingView style = {{flex : 6}} behavior = {"height"} keyboardVerticalOffset = {32}>
+                <View style = {containerStyle}>
+                {/* <KeyboardAvoidingView style = {{flex : 6}} behavior = {"height"} keyboardVerticalOffset = {32}> */}
                     <ExitButtonComponent handleExitButtonPress = {this.handleExitButtonPress}/>
                     <CommentComponent 
                         response={this.state.guesses[0]} 
@@ -181,9 +187,12 @@ class SinglePlayerGameComponent extends Component {
                         input = {this.state.input}
                         handleChangeText = {this.handleChangeText}
                         handleGuessButtonPress = {this.handleGuessButtonPress}/>
-                    <KeyboardComponent onKeyPress={this.handleKeyPress} input={this.state.input}/>
-                </KeyboardAvoidingView>
-                // </View>
+                    <KeyboardComponent 
+                        onKeyPress={this.handleKeyPress} 
+                        onBackspacePress = {this.handleBackspacePress}
+                        input={this.state.input}/>
+                {/* </KeyboardAvoidingView> */}
+                </View>
             );
         }
     }

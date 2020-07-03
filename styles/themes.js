@@ -12,7 +12,7 @@ export const darkTheme = {
     colors : {
         primary: '#FFFFFF',
         primaryDark: '#C2C2C2',
-        accent: '#000000',
+        accent: '#474747',
     },
     sound : true,
     vibrate : true
@@ -42,7 +42,7 @@ export const darkTheme = {
     colors : {
         primary: '#F4FF81',
         primaryDark: '#CDDC39',
-        accent: '#000000',
+        accent: '#474747',
     },
     sound : true,
     vibrate : true

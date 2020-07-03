@@ -18,7 +18,8 @@ function GuessResultComponent(props) {
         styles.font,
         {color : theme.colors.accent}
     ])
-    const iconSize = 40
+    const iconSize = BaseStyles.dimensions.fullHeight * 0.06
+    const logoSize = BaseStyles.dimensions.fullWidth * 0.3
 
     if(guess) { 
         return (
@@ -33,7 +34,7 @@ function GuessResultComponent(props) {
     } else {
         return (
             <View style = {cardContainer}>
-                <Icon name = "logo" size = {108} style = {{color : theme.colors.accent}} />
+                <Icon name = "logo" size = {logoSize} style = {{color : theme.colors.accent}} />
             </View>
         );
     }
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        marginTop : BaseStyles.padding.sm,
+        marginTop : BaseStyles.padding.md,
         marginHorizontal : BaseStyles.padding.xl,
         borderRadius : BaseStyles.borderRadius.radiusLg,
         elevation : 5,    
