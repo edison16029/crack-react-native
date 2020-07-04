@@ -10,6 +10,7 @@ import WinnerScreenComponent from './presentationalComponents/WinnerScreenCompon
 import GuessHistoryComponent from './presentationalComponents/GuessHistoryComponent'
 import GuessResultComponent from './presentationalComponents/GuessResultComponent'
 import CommentComponent from './presentationalComponents/CommentComponent';
+import KeyboardComponent from './presentationalComponents/KeyboardComponent';
 import { KeyboardAvoidingView, View, Alert, BackHandler } from 'react-native';
 import AppBarGameComponent from './presentationalComponents/AppBarGameComponent';
 import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
@@ -146,6 +147,19 @@ class SinglePlayerGameComponent extends Component {
         }
     }
 
+    handleKeyPress = (key) => {
+        console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
+        this.setState( (prevState) => {
+            return {input : prevState.input+key,renderComment : false}
+        })
+    }
+
+    handleBackspacePress = () => {
+        this.setState( (prevState) => {
+            return {input : prevState.input.slice(0,-1), renderComment : false}
+        })
+    }
+
 
     render() {
         const containerStyle = {
@@ -175,8 +189,7 @@ class SinglePlayerGameComponent extends Component {
             )
         } else {
             return (
-                // <View style = {containerStyle}>
-                <KeyboardAvoidingView style = {{flex : 6}} behavior = {"height"} keyboardVerticalOffset = {32}>
+                <View style = {containerStyle}>
                     <AppBarGameComponent 
                         isSurrenderShown = {true}
                         handleExitButtonPress = {this.handleExitButtonPress}
@@ -194,6 +207,10 @@ class SinglePlayerGameComponent extends Component {
                         input = {this.state.input}
                         handleChangeText = {this.handleChangeText}
                         handleGuessButtonPress = {this.handleGuessButtonPress}/>
+                    <KeyboardComponent 
+                        onKeyPress={this.handleKeyPress} 
+                        onBackspacePress = {this.handleBackspacePress}
+                        input={this.state.input}/>
                         
                     <CustomAlertComponent 
                         displayAlert={this.state.showExitAlert} 
@@ -218,8 +235,8 @@ class SinglePlayerGameComponent extends Component {
                         negativeButtonText={"CANCEL"}
                         onPressNegativeButton = {this.onPressSurrenderNegativeButton} 
                         onPressPositiveButton = {this.onPressSurrenderPositiveButton}/>                     
-                </KeyboardAvoidingView>
-                // </View>
+
+                </View>
             );
         }
     }

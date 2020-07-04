@@ -26,6 +26,7 @@ function WinnerScreenComponent(props) {
     ])
     const iconSize = BaseStyles.dimensions.fullWidth * 0.06
     const iconStyle = {color : theme.colors.accent}
+    const bannerSize = BaseStyles.dimensions.fullWidth * 0.26
     console.log("[WinnerScreenComponent.js] Target word guessed")
 
     const banner = () => {
@@ -61,7 +62,7 @@ function WinnerScreenComponent(props) {
 
 const styles = StyleSheet.create({
     cardContainer : {
-        flex : 2,
+        flex : 3,
         justifyContent : 'center',
         alignItems : 'center',
         marginTop : BaseStyles.margin.sm,
