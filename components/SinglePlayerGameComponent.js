@@ -33,6 +33,7 @@ class SinglePlayerGameComponent extends Component {
             guesses : [], // array of {id : X, $WO, cows : X, bulls : X}
             showExitAlert : false,
             showSurrenderAlert : false,
+            isSurrender : false,
         };
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.handleExitButtonPress)
     }
@@ -69,7 +70,7 @@ class SinglePlayerGameComponent extends Component {
     }
     onPressSurrenderPositiveButton = () => {
         this.hideSurrenderAlert()
-        // Add code to display gave up winner component
+        this.setState({isSurrender : true})
     }
     onPressSurrenderNegativeButton = () => {
         this.hideSurrenderAlert()
@@ -102,6 +103,9 @@ class SinglePlayerGameComponent extends Component {
             renderComment : true,
             targetWord : {}, 
             guesses : [],
+            showExitAlert : false,
+            showSurrenderAlert : false,
+            isSurrender : false,
         })
         fetchTargetWord("easy", this.handleFetchTargetWord)
     }
@@ -112,37 +116,6 @@ class SinglePlayerGameComponent extends Component {
             this.props.navigation.navigate('Home')
         } else {
             this.showExitAlert()
-            // Alert.alert(
-            //     "Quit Game",
-            //     "Do you wish to quit?",
-            //     [
-            //         {
-            //             text : "Confirm",
-            //             onPress : () =>  {
-            //                 console.log("[SinglePlayerGameComponent.js] Exit Confirm Pressed")
-            //                 Alert.alert(
-            //                     "Quit Game",
-            //                     "The word to be cracked was " + this.state.targetWord['word'].toUpperCase(),
-            //                     [
-            //                         {
-            //                             text : "Ok",
-            //                             onPress : () => {
-            //                                 this.props.navigation.navigate('Home')
-            //                             }
-            //                         }
-            //                     ],
-            //                     {cancelable : false}
-            //                     )
-            //                // this.props.navigation.navigate('Home')
-            //             }
-            //         },
-            //         {
-            //             text : "Cancel",
-            //             onPress : () => console.log("[SinglePlayerGameComponent.js] Exit Cancel Pressed"),
-            //             style : "cancel",
-            //         }
-            //     ],
-            // )
         }
         return true
     }
@@ -179,10 +152,13 @@ class SinglePlayerGameComponent extends Component {
             flex : 1,
             backgroundColor : this.props.theme.colors.primary,
         }
-        if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
+        if( (this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4)
+            || this.state.isSurrender) {
+
             return (
                 <View style = {containerStyle}>
-                    <AppBarGameComponent 
+                    <AppBarGameComponent
+                        isSurrenderShown = {false}
                         handleExitButtonPress = {this.handleExitButtonPress}
                         handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 
@@ -191,9 +167,10 @@ class SinglePlayerGameComponent extends Component {
                         isRender = {this.state.renderComment} />
                     <GuessHistoryComponent guesses = {this.state.guesses}/> 
                     <WinnerScreenComponent 
-                        guess = {this.state.guesses[0]['word']}
+                        isSurrender = {this.state.isSurrender}
+                        guess = {this.state.targetWord['word']}
                         handleHomeButtonPress = {this.handleHomeButtonPress}
-                        handleRestartButtonPress = {this.handleRestartButtonPress} /> 
+                        handleRestartButtonPress = {this.handleRestartButtonPress} />
                 </View>
             )
         } else {
@@ -201,6 +178,7 @@ class SinglePlayerGameComponent extends Component {
                 // <View style = {containerStyle}>
                 <KeyboardAvoidingView style = {{flex : 6}} behavior = {"height"} keyboardVerticalOffset = {32}>
                     <AppBarGameComponent 
+                        isSurrenderShown = {true}
                         handleExitButtonPress = {this.handleExitButtonPress}
                         handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 

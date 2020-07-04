@@ -8,7 +8,7 @@ import  Icon from 'react-native-vector-icons/FontAwesome5'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 function WinnerScreenComponent(props) {
-    const {guess, handleHomeButtonPress, handleRestartButtonPress} = props
+    const {guess, handleHomeButtonPress, handleRestartButtonPress, isSurrender} = props
     const theme = useSelector(state => state.theme)
     const cardContainer = StyleSheet.flatten([
         styles.cardContainer,
@@ -27,10 +27,26 @@ function WinnerScreenComponent(props) {
     const iconSize = BaseStyles.dimensions.fullWidth * 0.06
     const iconStyle = {color : theme.colors.accent}
     console.log("[WinnerScreenComponent.js] Target word guessed")
+
+    const banner = () => {
+        if(isSurrender){
+            return (
+                //Change this to surrender icon
+                <CustomIcon name = {"logo"} size = {96} style = {iconStyle}/>
+            )
+        }
+        else{
+            return (
+                <CustomIcon name = {"banner"} size = {96} style = {iconStyle}/>
+            )
+        }
+    }
+        
+
     return (
         <View style = {cardContainer}>
             <Text style = {font}>{guess}</Text>
-            <CustomIcon name = {"banner"} size = {96} style = {iconStyle}/> 
+            {banner()}
             <View style = {styles.iconRow} >
                 <TouchableOpacity style = {iconButton} onPress = {handleHomeButtonPress}>
                     <Icon name = "home" type = "font-awesome" size = {iconSize} style = {iconStyle} />

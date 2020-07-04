@@ -6,20 +6,31 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function AppBarGameComponent(props) {
-    const {handleExitButtonPress,handleSurrenderButtonPress} = props
+    const {handleExitButtonPress,handleSurrenderButtonPress, isSurrenderShown} = props
     const theme = useSelector(state => state.theme)
 
     const iconSize = BaseStyles.dimensions.fullWidth * 0.07
+
+    const surrenderFlag = () => {
+        if(!isSurrenderShown){
+            <></>
+        }
+        else{
+            return (
+                <TouchableOpacity onPress = {handleSurrenderButtonPress}>
+                    <Icon color={theme.colors.accent} name="flag" 
+                        type="font-awesome" size={iconSize} style={styles.app_bar_icons}/>
+                </TouchableOpacity>
+            )
+        }
+    }
     return (
         <View style={styles.app_bar_container}>
             <TouchableOpacity onPress = {handleExitButtonPress}>
                 <Icon color={theme.colors.accent} name="times-circle" 
                     type="font-awesome" size={iconSize} style={styles.app_bar_icons}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress = {handleSurrenderButtonPress}>
-                <Icon color={theme.colors.accent} name="flag" 
-                    type="font-awesome" size={iconSize} style={styles.app_bar_icons}/>
-            </TouchableOpacity>
+            {surrenderFlag()}
         </View>
     )
 }
