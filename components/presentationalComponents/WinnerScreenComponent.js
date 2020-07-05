@@ -33,12 +33,12 @@ function WinnerScreenComponent(props) {
         if(isSurrender){
             return (
                 //Change this to surrender icon
-                <CustomIcon name = {"logo"} size = {96} style = {iconStyle}/>
+                <CustomIcon name = {"giveupbanner"} size = {bannerSize} style = {iconStyle}/>
             )
         }
         else{
             return (
-                <CustomIcon name = {"banner"} size = {96} style = {iconStyle}/>
+                <CustomIcon name = {"winnerbanner"} size = {bannerSize} style = {iconStyle}/>
             )
         }
     }
@@ -80,14 +80,16 @@ const styles = StyleSheet.create({
     iconRow : { 
         width : `60%`, 
         flexDirection : 'row', 
-        justifyContent : 'space-around', 
+        justifyContent : 'center', 
         alignItems : 'center',
+        paddingTop : BaseStyles.padding.md
     },
     iconButton : {
         width : BaseStyles.dimensions.fullWidth * 0.11,
         height : BaseStyles.dimensions.fullWidth * 0.11,
         justifyContent : 'center',
         alignItems : 'center',
+        margin : BaseStyles.margin.sm,
         borderRadius : (BaseStyles.dimensions.fullWidth*0.11)/2,
         borderWidth : 2.5,
         elevation : 5,

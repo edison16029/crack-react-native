@@ -126,6 +126,19 @@ class SinglePlayerGameComponent extends Component {
         this.showSurrenderAlert()
     }
 
+    handleKeyPress = (key) => {
+        console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
+        this.setState( (prevState) => {
+            return {input : prevState.input+key,renderComment : false}
+        })
+    }
+
+    handleBackspacePress = () => {
+        this.setState( (prevState) => {
+            return {input : prevState.input.slice(0,-1), renderComment : false}
+        })
+    }
+    
     //HANDLERS FOR SERVER FETCH
     handleFetchTargetWord = (response) => {
         console.log("[SinglePlayerGameComponent.js] TargetWord : " + JSON.stringify(response))
@@ -146,20 +159,6 @@ class SinglePlayerGameComponent extends Component {
             this.setState({isLastGuessWord : false})
         }
     }
-
-    handleKeyPress = (key) => {
-        console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
-        this.setState( (prevState) => {
-            return {input : prevState.input+key,renderComment : false}
-        })
-    }
-
-    handleBackspacePress = () => {
-        this.setState( (prevState) => {
-            return {input : prevState.input.slice(0,-1), renderComment : false}
-        })
-    }
-
 
     render() {
         const containerStyle = {
