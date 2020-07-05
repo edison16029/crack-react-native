@@ -1,3 +1,5 @@
+import * as Comments from './comments';
+
 const word_list = require('./wordList.json');
 const TAG = " [fetchFunctions.js] ";
 
@@ -72,4 +74,33 @@ export const fetchGuessResult = ( targetWordString, guessWordString, callbackHan
         callbackHandler(null);
     }
     return;
+}
+
+export const fetchComment = ({isBeginning, guess, isWrongWord, isSurrender}) => {
+    console.log("[ SinglePlayerGameComponent.js ] function getComment Guess : ",guess);
+    console.log("[ SinglePlayerGameComponent.js ] function getComment isWrongWord : ",isWrongWord);
+    if(isBeginning){
+        return Comments.beginning[Math.floor(Math.random()* Comments.beginning.length)]
+    }
+    else if(isSurrender){
+        return Comments.surrender[Math.floor(Math.random()* Comments.surrender.length)]
+    }
+    else if(isWrongWord === true) {
+        return Comments.wrongWord[Math.floor(Math.random()* Comments.wrongWord.length)]
+    }
+    else if(guess['bulls']==4){
+        return Comments.cracked[Math.floor(Math.random()* Comments.cracked.length)]
+    }
+    else if(guess['is_profane']){
+        return Comments.profane[Math.floor(Math.random()* Comments.profane.length)]
+    }
+    else if(guess['bulls']>=3 || (guess['bulls']+guess['cows']) >=4 ){
+        return Comments.almost[Math.floor(Math.random()* Comments.almost.length)]
+    }
+    else if((guess['bulls']+guess['cows']) == 0){
+        return Comments.stray[Math.floor(Math.random()* Comments.stray.length)]
+    }
+    else{
+        return Comments.general[Math.floor(Math.random()* Comments.general.length)]
+    }
 }

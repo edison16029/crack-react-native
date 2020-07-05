@@ -25,6 +25,13 @@ export const beginning = [
     "Put your thinking caps on"
 ]
 
+export const surrender = [
+    "Maybe next time!",
+    "Let's not use the flag again",
+    "Wish you could have tried more?",
+    "We don't stop halfway anymore"
+]
+
 export const stray = [
     "Maybe we should think different?",
     "You can do better than that!",
