@@ -7,6 +7,7 @@ import { setSound, setVibrate} from '../../redux/actionCreators';
 import { setColors } from '../../redux/actionCreators';
 import Icon from 'react-native-vector-icons/FontAwesome5' ;
 import { TouchableNativeFeedback, TouchableOpacity } from 'react-native-gesture-handler';
+import SoundAndVibrate from '../../shared/SoundAndVibrate'
 
 function RenderColors(props){
     const theme = useSelector(state => state.theme);
@@ -32,7 +33,10 @@ function RenderColors(props){
 
 
     const renderColor = (colors) => (
-        <TouchableNativeFeedback onPress={() => {changeThemeColor(colors)}}>
+        <TouchableNativeFeedback onPress={() => 
+            {changeThemeColor(colors)
+            SoundAndVibrate.play('button', theme.sound)
+        }}>
             <View style={{width:30,height:30,justifyContent:'center',alignItems:'center',
                 borderColor:theme.colors.accent,
                 borderWidth : 1,
@@ -96,6 +100,7 @@ function SettingsComponent(props){
 
     const toggleSound = () => {
         console.log(" [HomeCardComponent.js] " + "toggling sound");
+        SoundAndVibrate.play('button', theme.sound)
         if(soundValue){
             dispatch(setSound(false));
         }
@@ -107,6 +112,7 @@ function SettingsComponent(props){
 
     const toggleVibrate = () => {
         console.log(" [HomeCardComponent.js] " + "toggling vibrate");
+        SoundAndVibrate.play('button', theme.sound)
         if(vibrateValue){
             dispatch(setVibrate(false));
         }

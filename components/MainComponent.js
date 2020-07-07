@@ -8,6 +8,7 @@ import GameComponent from './GameComponent';
 import { StatusBar } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
+import SoundAndVibrate from '../shared/SoundAndVibrate';
 
 const Stack = createStackNavigator( );
 
@@ -15,7 +16,8 @@ class MainComponent extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            fontsLoaded : false
+            fontsLoaded : false,
+            soundsLoaded : false,
          };
     }
 
@@ -31,12 +33,34 @@ class MainComponent extends Component {
         }
     }
 
+    async _loadSoundsAsync() {
+        try {
+            soundLibrary = {
+                'button' : require('../assets/sounds/button.wav'),
+                'cracked' : require('../assets/sounds/cracked.wav'),
+                'guess' : require('../assets/sounds/guess.wav'),
+            }
+            SoundAndVibrate.loadSoundsAsync({
+                'button' : require('../assets/sounds/button.wav'),
+                'cracked' : require('../assets/sounds/cracked.wav'),
+                'guess' : require('../assets/sounds/guess.wav'),
+                'giveup' : require('../assets/sounds/giveup.mp3')
+            })
+            this.setState({ soundsLoaded: true });
+            //SoundAndVibrate.playSound('button')
+            console.log("[MainComponent.js] Loaded sounds")
+        } catch (error) {
+            console.warn("[MainComponent.js] Error Loading sounds")
+        }
+    }
+
     componentDidMount(){
         StatusBar.setHidden(true)
         this._loadFontsAsync()
+        this._loadSoundsAsync()
     }
     render() {
-        if (this.state.fontsLoaded) {
+        if (this.state.fontsLoaded && this.state.soundsLoaded) {
             return (
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName="Home" headerMode = 'none'>

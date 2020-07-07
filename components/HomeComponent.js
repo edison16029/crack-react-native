@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { View,TouchableNativeFeedback,BackHandler } from 'react-native';
 import * as Themes from '../styles/themes';
+import SoundAndVibrate from '../shared/SoundAndVibrate'
 //Redux
 import { connect } from 'react-redux';
 import { setTheme } from '../redux/actionCreators';
@@ -49,12 +50,14 @@ class HomeComponent extends Component {
 
     onClosePress() {
         console.log(" [ HomeComponent.js ] " + "Close Pressed");
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.setState({
             homeCardContent : 'logo'
         })
     }
 
     onPlayPress() {
+        SoundAndVibrate.play('button', this.props.theme.sound, this.props.theme.vibrate)
         this.setState({
             homeCardContent : 'logo'
         })
@@ -64,6 +67,7 @@ class HomeComponent extends Component {
     }
 
     onHowToPlayPress() {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         if(this.state.homeCardContent === 'howToPlay'){
             this.setState({
                 homeCardContent : 'logo'
@@ -77,6 +81,7 @@ class HomeComponent extends Component {
     }
 
     onSettingsPress() {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         if(this.state.homeCardContent === 'settings'){
             this.setState({
                 homeCardContent : 'logo'
@@ -91,6 +96,7 @@ class HomeComponent extends Component {
 
     handleExitButtonPress = () => {
         console.log(" [HomeComponent.js] " + "Exit Button Pressed...")
+        SoundAndVibrate.play('button', this.props.theme.sound, this.props.vibrate)
         this.showExitAlert()
         return true; //Prevents popping up the stack
     }
@@ -104,10 +110,12 @@ class HomeComponent extends Component {
         this.setState({showExitAlert : false})
     }
     onPressExitPositiveButton = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.hideExitAlert()
         BackHandler.exitApp();
     }
     onPressExitNegativeButton = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.hideExitAlert()
     }
 

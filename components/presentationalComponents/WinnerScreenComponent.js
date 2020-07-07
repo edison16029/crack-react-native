@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import CustomIcon from '../CustomIconComponent'
 import  Icon from 'react-native-vector-icons/FontAwesome5'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import SoundAndVibrate from '../../shared/SoundAndVibrate'
 
 function WinnerScreenComponent(props) {
     const {guess, handleHomeButtonPress, handleRestartButtonPress, isSurrender} = props
@@ -31,12 +32,13 @@ function WinnerScreenComponent(props) {
 
     const banner = () => {
         if(isSurrender){
+            SoundAndVibrate.play('giveup', theme.sound, theme.vibrate)
             return (
-                //Change this to surrender icon
                 <CustomIcon name = {"giveupbanner"} size = {bannerSize} style = {iconStyle}/>
             )
         }
         else{
+            SoundAndVibrate.play('cracked', theme.sound, theme.vibrate)
             return (
                 <CustomIcon name = {"winnerbanner"} size = {bannerSize} style = {iconStyle}/>
             )

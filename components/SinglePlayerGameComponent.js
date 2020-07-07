@@ -14,6 +14,7 @@ import KeyboardComponent from './presentationalComponents/KeyboardComponent';
 import { KeyboardAvoidingView, View, Alert, BackHandler } from 'react-native';
 import AppBarGameComponent from './presentationalComponents/AppBarGameComponent';
 import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
+import SoundAndVibrate from '../shared/SoundAndVibrate'
 
 const mapStateToProps = (state) => {
     return {
@@ -56,10 +57,12 @@ class SinglePlayerGameComponent extends Component {
         this.setState({showExitAlert : false})
     }
     onPressExitPositiveButton = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.hideExitAlert()
         this.props.navigation.navigate("Home")
     }
     onPressExitNegativeButton = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.hideExitAlert()
     }
     //Surrender Alert
@@ -70,10 +73,12 @@ class SinglePlayerGameComponent extends Component {
         this.setState({showSurrenderAlert : false})
     }
     onPressSurrenderPositiveButton = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.hideSurrenderAlert()
         this.setState({isSurrender : true})
     }
     onPressSurrenderNegativeButton = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.hideSurrenderAlert()
     }
 
@@ -83,6 +88,7 @@ class SinglePlayerGameComponent extends Component {
     }
 
     handleGuessButtonPress = () => {
+        SoundAndVibrate.play('guess', this.props.theme.sound)
         if(this.state.input.length == 4) {
             fetchGuessResult(this.state.targetWord['word'], this.state.input.toLowerCase(), this.handleFetchGuessResult)
             this.setState({input : "", renderComment : true})
@@ -90,12 +96,14 @@ class SinglePlayerGameComponent extends Component {
     };
 
     handleHomeButtonPress = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         const { navigation } = this.props
         console.log("[SinglePlayerGameComponent.js] " + "Home Button Pressed")
         navigation.navigate('Home')
     }
 
     handleRestartButtonPress = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         console.log("[SinglePlayerGameComponent.js] " + "Restart Button Pressed")
         this.setState({            
             id : 0,
@@ -113,7 +121,8 @@ class SinglePlayerGameComponent extends Component {
 
     handleExitButtonPress = () => {
         console.log("[SinglePlayerGameComponent.js] Exit Button Pressed")
-        if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4) {
+        SoundAndVibrate.play('button', this.props.theme.sound, this.props.theme.vibrate)
+        if(this.state.guesses.length > 0 && this.state.guesses[0]['bulls'] === 4 || this.state.isSurrender) {
             this.props.navigation.navigate('Home')
         } else {
             this.showExitAlert()
@@ -123,17 +132,20 @@ class SinglePlayerGameComponent extends Component {
 
     handleSurrenderButtonPress = () => {
         console.log("[SinglePlayerGameComponent.js] Surrender Button Pressed")
+        SoundAndVibrate.play('button', this.props.theme.sound, this.props.theme.vibrate)
         this.showSurrenderAlert()
     }
 
     handleKeyPress = (key) => {
         console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.setState( (prevState) => {
             return {input : prevState.input+key,renderComment : false}
         })
     }
 
     handleBackspacePress = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
         this.setState( (prevState) => {
             return {input : prevState.input.slice(0,-1), renderComment : false}
         })
@@ -156,6 +168,7 @@ class SinglePlayerGameComponent extends Component {
             })
         }
         else {
+            SoundAndVibrate.play('button', false, this.props.theme.vibrate)
             this.setState({isLastGuessWord : false})
         }
     }
