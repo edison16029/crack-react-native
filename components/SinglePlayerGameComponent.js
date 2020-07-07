@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { fetchTargetWord,fetchGuessResult } from '../shared/fetchFunctions'
+import { fetchTargetWord,fetchGuessResult, fetchComment } from '../shared/fetchFunctions'
 //Redux
 import { connect } from 'react-redux'
 //Presentational Components
@@ -16,6 +16,7 @@ import AppBarGameComponent from './presentationalComponents/AppBarGameComponent'
 import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
 import SoundAndVibrate from '../shared/SoundAndVibrate'
 
+
 const mapStateToProps = (state) => {
     return {
         theme : state.theme
@@ -29,8 +30,7 @@ class SinglePlayerGameComponent extends Component {
         this.state = {
             id : 0,
             input : "",
-            isLastGuessWord : true,
-            renderComment : true,
+            comment : "",
             targetWord : {}, 
             guesses : [], // array of {id : X, $WO, cows : X, bulls : X}
             showExitAlert : false,
@@ -42,6 +42,13 @@ class SinglePlayerGameComponent extends Component {
 
     componentDidMount() {
         fetchTargetWord("easy", this.handleFetchTargetWord)
+        const commentOptions = {
+            isBeginning : true,
+            guess : null,
+            isWrongWord : null,
+            isSurrender : false
+        }
+        this.setState({comment : fetchComment(commentOptions)})
     }
 
     componentWillUnmount() {
@@ -75,7 +82,14 @@ class SinglePlayerGameComponent extends Component {
     onPressSurrenderPositiveButton = () => {
         SoundAndVibrate.play('button', this.props.theme.sound)
         this.hideSurrenderAlert()
-        this.setState({isSurrender : true})
+        const commentOptions = {
+            isBeginning : null,
+            guess : null,
+            isWrongWord : null,
+            isSurrender : true
+        }
+        this.setState({isSurrender : true,comment : fetchComment(commentOptions)})
+
     }
     onPressSurrenderNegativeButton = () => {
         SoundAndVibrate.play('button', this.props.theme.sound)
@@ -84,14 +98,14 @@ class SinglePlayerGameComponent extends Component {
 
     //HANDLERS FOR UI
     handleChangeText = (text) => {
-        this.setState({input : text, renderComment : false});
+        this.setState({input : text});
     }
 
     handleGuessButtonPress = () => {
         SoundAndVibrate.play('guess', this.props.theme.sound)
         if(this.state.input.length == 4) {
             fetchGuessResult(this.state.targetWord['word'], this.state.input.toLowerCase(), this.handleFetchGuessResult)
-            this.setState({input : "", renderComment : true})
+            this.setState({input : ""})
         }
     };
 
@@ -108,8 +122,7 @@ class SinglePlayerGameComponent extends Component {
         this.setState({            
             id : 0,
             input : "",
-            isLastGuessWord : true,
-            renderComment : true,
+            comment : "",
             targetWord : {}, 
             guesses : [],
             showExitAlert : false,
@@ -117,6 +130,13 @@ class SinglePlayerGameComponent extends Component {
             isSurrender : false,
         })
         fetchTargetWord("easy", this.handleFetchTargetWord)
+        const commentOptions = {
+            isBeginning : true,
+            guess : null,
+            isWrongWord : null,
+            isSurrender : false
+        }
+        this.setState({comment : fetchComment(commentOptions)})
     }
 
     handleExitButtonPress = () => {
@@ -140,14 +160,14 @@ class SinglePlayerGameComponent extends Component {
         console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
         SoundAndVibrate.play('button', this.props.theme.sound)
         this.setState( (prevState) => {
-            return {input : prevState.input+key,renderComment : false}
+            return {input : prevState.input+key}
         })
     }
 
     handleBackspacePress = () => {
         SoundAndVibrate.play('button', this.props.theme.sound)
         this.setState( (prevState) => {
-            return {input : prevState.input.slice(0,-1), renderComment : false}
+            return {input : prevState.input.slice(0,-1)}
         })
     }
     
@@ -160,16 +180,29 @@ class SinglePlayerGameComponent extends Component {
     handleFetchGuessResult = (response) => {
         console.log("[SinglePlayerGameComponent.js] GuessResult : " + JSON.stringify(response))
         if(response) {
+            const commentOptions = {
+                isBeginning : false,
+                guess : response,
+                isWrongWord : false,
+                isSurrender : false
+            }
             this.setState((prevState) => {
                 const guesses = [{
                     id : prevState.id,
-                    ...response}, ...prevState.guesses] 
-                return {guesses, id : prevState.id + 1, isLastGuessWord : true}
+                    ...response
+                    }, ...prevState.guesses] 
+                return {guesses, id : prevState.id + 1, comment : fetchComment(commentOptions)}
             })
         }
         else {
             SoundAndVibrate.play('button', false, this.props.theme.vibrate)
-            this.setState({isLastGuessWord : false})
+            const commentOptions = {
+                isBeginning : false,
+                guess : null,
+                isWrongWord : true,
+                isSurrender : false
+            }
+            this.setState({comment : fetchComment(commentOptions)})
         }
     }
 
@@ -188,9 +221,7 @@ class SinglePlayerGameComponent extends Component {
                         handleExitButtonPress = {this.handleExitButtonPress}
                         handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 
-                        response={this.state.guesses[0]} 
-                        isLastGuessWord = {this.state.isLastGuessWord}
-                        isRender = {this.state.renderComment} />
+                        comment = {this.state.comment}/>
                     <GuessHistoryComponent guesses = {this.state.guesses}/> 
                     <WinnerScreenComponent 
                         isSurrender = {this.state.isSurrender}
@@ -207,9 +238,7 @@ class SinglePlayerGameComponent extends Component {
                         handleExitButtonPress = {this.handleExitButtonPress}
                         handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 
-                        response={this.state.guesses[0]} 
-                        isLastGuessWord = {this.state.isLastGuessWord}
-                        isRender = {this.state.renderComment}/>
+                        comment = {this.state.comment}/>
                     <GuessHistoryComponent guesses = {this.state.guesses.slice(1)}/>
                     <GuessResultComponent 
                         guess = {this.state.guesses.length > 0 ? this.state.guesses[0]['word'] : null}
