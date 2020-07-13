@@ -12,6 +12,7 @@ import AppBarComponent from './presentationalComponents/AppBarComponent';
 import HomeCardComponent from './presentationalComponents/HomeCardComponent';
 import ButtonComponent from './presentationalComponents/ButtonComponent';
 import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
+import HowToPlayComponent from './presentationalComponents/HowToPlayComponent';
 
 const mapStateToProps = (state) => {
     return {
@@ -30,6 +31,7 @@ class HomeComponent extends Component {
         this.state = {  
             homeCardContent : 'logo',
             showExitAlert : false,
+            showHowToPlayModal : false,
         };
         this.onPlayPress = this.onPlayPress.bind(this);
         this.onHowToPlayPress = this.onHowToPlayPress.bind(this);
@@ -68,16 +70,15 @@ class HomeComponent extends Component {
 
     onHowToPlayPress() {
         SoundAndVibrate.play('button', this.props.theme.sound)
-        if(this.state.homeCardContent === 'howToPlay'){
-            this.setState({
-                homeCardContent : 'logo'
-            })
-        }
-        else{
-            this.setState({
-                homeCardContent : 'howToPlay'
-            })
-        }
+        this.setState({
+            showHowToPlayModal : true
+        })
+    }
+    onHowToPlayClosePress = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
+        this.setState({
+            showHowToPlayModal : false
+        })
     }
 
     onSettingsPress() {
@@ -139,6 +140,10 @@ class HomeComponent extends Component {
                     <View style={{flex : 5,alignItems:'center',justifyContent:'space-evenly'}}>
                         <ButtonComponent onPress={this.onPlayPress}/>
                     </View>
+
+                    <HowToPlayComponent 
+                        onClosePress = {this.onHowToPlayClosePress}
+                        displayHowToPlay = {this.state.showHowToPlayModal} />
 
                     <CustomAlertComponent 
                         displayAlert={this.state.showExitAlert} 

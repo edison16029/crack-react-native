@@ -33,6 +33,7 @@ export const fonts = {
     lg: 36,
     spacingSm: 15,
     spacingLg: 20,
+    lineHeightSm : 24,
     primary: 'Roboto'
 }
 

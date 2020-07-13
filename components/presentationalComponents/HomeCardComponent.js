@@ -16,13 +16,6 @@ function HomeCardComponent(props) {
                 <SettingsComponent onClosePress={props.onClosePress}/>
             </View>
         )
-    else if(props.content === 'howToPlay'){
-        return (
-            <View style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
-                <Text>How To Play</Text>
-            </View>
-        )
-    }
     else{
         return (
             <View style = {[styles.card_container,{backgroundColor : theme.colors.primaryDark}]}>
