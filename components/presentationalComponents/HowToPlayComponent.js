@@ -196,6 +196,12 @@ function HowToPlayComponent(props){
                 <Animated.View style={styles.outerContainerStyle} {...panResponder.panHandlers} >
                     <View style={[styles.containerStyle,{backgroundColor : theme.colors.primaryDark}]}>
                         <View style={styles.titleRow}>
+                            <View style={styles.closeButtonContainerStyle}></View>
+
+                            <View style={styles.headerTextContainerStyle}>
+                                <Text style={[styles.headerTextStyle,{color : theme.colors.accent}]}>How To Play</Text>
+                            </View>
+
                             <View style={styles.closeButtonContainerStyle}>
                                 <TouchableOpacity onPress={() => {
                                     onClosePress()
@@ -205,13 +211,7 @@ function HowToPlayComponent(props){
                                             type="font-awesome" size={closeButtonSize}
                                         />
                                 </TouchableOpacity>
-
                             </View>
-                            <View style={styles.headerTextContainerStyle}>
-                                <Text style={[styles.headerTextStyle,{color : theme.colors.accent}]}>How To Play</Text>
-                            </View>
-
-                            <View style={styles.closeButtonContainerStyle}></View>
                         </View>
 
                         <View style={[styles.contentRow,{backgroundColor : theme.colors.primaryDark}]}>
@@ -268,8 +268,8 @@ const styles = StyleSheet.create({
     },
     closeButtonContainerStyle : {
         flex : 1,
-        marginTop : (-1 * BaseStyles.margin.lg)  + BaseStyles.margin.sm,
-        alignItems : "flex-start",
+        marginTop : (-1 * BaseStyles.margin.lg) ,
+        alignItems : "flex-end",
     },
     contentRow : {
         flex : 8,

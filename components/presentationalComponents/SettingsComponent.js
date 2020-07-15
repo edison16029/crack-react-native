@@ -74,8 +74,8 @@ function SettingsComponent(props){
     const closeButtonContainerStyle = {
         flex : 0.1,
         marginTop : (-1 * BaseStyles.margin.lg)  + BaseStyles.margin.sm,
-        marginLeft : (-1 * BaseStyles.margin.lg)  + BaseStyles.margin.sm,
-        alignItems : "flex-start"
+        marginRight : (-1 * BaseStyles.margin.lg)  + BaseStyles.margin.sm,
+        alignItems : "flex-end"
     }
 
     const rowContainerStyle = {

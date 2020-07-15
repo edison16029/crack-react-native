@@ -26,11 +26,12 @@ function AppBarGameComponent(props) {
     }
     return (
         <View style={styles.app_bar_container}>
+            {surrenderFlag()}
             <TouchableOpacity onPress = {handleExitButtonPress}>
                 <Icon color={theme.colors.accent} name="times-circle" 
                     type="font-awesome" size={iconSize} style={styles.app_bar_icons}/>
             </TouchableOpacity>
-            {surrenderFlag()}
+            
         </View>
     )
 }
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     app_bar_container : {
         flexDirection : 'row',
         margin : BaseStyles.margin.sm,
-        justifyContent : 'space-between'
+        justifyContent : 'flex-end'
     },
     app_bar_icons : {
         paddingTop : BaseStyles.padding.sm,
