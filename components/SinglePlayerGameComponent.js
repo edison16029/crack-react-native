@@ -15,6 +15,8 @@ import { KeyboardAvoidingView, View, Alert, BackHandler } from 'react-native';
 import AppBarGameComponent from './presentationalComponents/AppBarGameComponent';
 import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
 import SoundAndVibrate from '../shared/SoundAndVibrate'
+import HowToPlayComponent from './presentationalComponents/HowToPlayComponent';
+
 
 
 const mapStateToProps = (state) => {
@@ -36,6 +38,7 @@ class SinglePlayerGameComponent extends Component {
             showExitAlert : false,
             showSurrenderAlert : false,
             isSurrender : false,
+            showHowToPlayModal : false,
         };
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", this.handleExitButtonPress)
     }
@@ -128,6 +131,7 @@ class SinglePlayerGameComponent extends Component {
             showExitAlert : false,
             showSurrenderAlert : false,
             isSurrender : false,
+            showHowToPlayModal : false,
         })
         fetchTargetWord("easy", this.handleFetchTargetWord)
         const commentOptions = {
@@ -150,6 +154,20 @@ class SinglePlayerGameComponent extends Component {
         return true
     }
 
+    onHowToPlayPress = () => {
+        console.log(" [SPGC.js] How to play pressed")
+        SoundAndVibrate.play('button', this.props.theme.sound)
+        this.setState({
+            showHowToPlayModal : true
+        })
+    }
+
+    onHowToPlayClosePress = () => {
+        SoundAndVibrate.play('button', this.props.theme.sound)
+        this.setState({
+            showHowToPlayModal : false
+        })
+    }
     handleSurrenderButtonPress = () => {
         console.log("[SinglePlayerGameComponent.js] Surrender Button Pressed")
         SoundAndVibrate.play('button', this.props.theme.sound, this.props.theme.vibrate)
@@ -219,6 +237,7 @@ class SinglePlayerGameComponent extends Component {
                     <AppBarGameComponent
                         isSurrenderShown = {false}
                         handleExitButtonPress = {this.handleExitButtonPress}
+                        onHowToPlayPress = {this.onHowToPlayPress}
                         handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 
                         comment = {this.state.comment}/>
@@ -236,6 +255,7 @@ class SinglePlayerGameComponent extends Component {
                     <AppBarGameComponent 
                         isSurrenderShown = {true}
                         handleExitButtonPress = {this.handleExitButtonPress}
+                        onHowToPlayPress = {this.onHowToPlayPress}
                         handleSurrenderButtonPress = {this.handleSurrenderButtonPress}/>
                     <CommentComponent 
                         comment = {this.state.comment}/>
@@ -252,6 +272,10 @@ class SinglePlayerGameComponent extends Component {
                         onKeyPress={this.handleKeyPress} 
                         onBackspacePress = {this.handleBackspacePress}
                         input={this.state.input}/>
+
+                    <HowToPlayComponent 
+                        onClosePress = {this.onHowToPlayClosePress}
+                        displayHowToPlay = {this.state.showHowToPlayModal} />
                         
                     <CustomAlertComponent 
                         displayAlert={this.state.showExitAlert} 
