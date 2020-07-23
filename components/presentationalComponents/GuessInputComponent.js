@@ -1,17 +1,19 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import {TextInput, Button, View, StyleSheet} from 'react-native'
 import  Icon from 'react-native-vector-icons/FontAwesome5'
-// import Icon from '../CustomIconComponent'
+import SoundAndVibrate from '../../shared/SoundAndVibrate'
 import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 import * as BaseStyles from '../../styles/base'
+import KeyboardComponent from './KeyboardComponent'
 
 function GuessInputComponent(props)  {
-    const {input, handleChangeText, handleGuessButtonPress} = props;
-    const theme = useSelector(state => state.theme);
+    const {handleGuessButtonPress} = props;
+    const theme = useSelector(state => state.theme)
+    const [keyboardInput, setKeyboardInput] = useState("")
 
-    const isGuessButtonDisabled = input.length < 4 ? true : false
+    const isGuessButtonDisabled = keyboardInput.length < 4 ? true : false
     const guessButtonColour = isGuessButtonDisabled ? theme.colors.primary : theme.colors.accent
     const textInput = StyleSheet.flatten([
         styles.textInput, 
@@ -28,22 +30,41 @@ function GuessInputComponent(props)  {
     const guessButtonIcon = {color : guessButtonColour}
     const iconSize = BaseStyles.dimensions.fullWidth * 0.07
 
-    return (
-        <View style = {styles.container}>
-            <TextInput 
-                value={input} onChangeText = {handleChangeText} style = {textInput} maxLength = {4} editable = {false}
-                placeholder = ". . . ." autoCapitalize = {'characters'} placeholderTextColor = {theme.colors.accent} />
+    const handleKeyPress = (key) => {
+        console.log(" [GuessInputComponent.js] " + "Key : ",key )
+        SoundAndVibrate.play('keyPress', theme.sound)
+        setKeyboardInput(keyboardInput + key)
+    }
 
-            <TouchableOpacity style = {guessButton} onPress = {handleGuessButtonPress} disabled = {isGuessButtonDisabled}>
-                <Icon style = {guessButtonIcon} size = {iconSize} name = "arrow-up" type = "font-awesome"/>
-                {/* <Icon style = {guessButtonIcon} size = {iconSize} name = "bullseye" /> */}
-            </TouchableOpacity>
+    const handleBackspacePress = () => {
+        SoundAndVibrate.play('keyPress', theme.sound)
+        setKeyboardInput(keyboardInput.slice(0,-1))
+    }
+
+
+    return (
+        <View style = {{flex : 4}} >
+            <View style = {styles.rowContainer}>
+                <TextInput 
+                    value={keyboardInput} style = {textInput} maxLength = {4} editable = {false}
+                    placeholder = ". . . ." autoCapitalize = {'characters'} placeholderTextColor = {theme.colors.accent} />
+
+                <TouchableOpacity style = {guessButton} 
+                    onPress = {() => { setKeyboardInput(""), handleGuessButtonPress(keyboardInput)}} 
+                    disabled = {isGuessButtonDisabled}>
+                    <Icon style = {guessButtonIcon} size = {iconSize} name = "arrow-up" type = "font-awesome"/>
+                </TouchableOpacity>
+            </View>
+            <KeyboardComponent 
+                input = {keyboardInput}
+                onKeyPress = {handleKeyPress}
+                onBackspacePress = {handleBackspacePress}/>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container : {
+    rowContainer : {
         flex : 1,
         flexDirection : 'row',
         justifyContent : 'center',
@@ -72,8 +93,6 @@ const styles = StyleSheet.create({
 });
 
 GuessInputComponent.propTypes = {
-    input : PropTypes.string.isRequired,
-    handleChangeText : PropTypes.func.isRequired,
     handleGuessButtonPress : PropTypes.func.isRequired,
 }
 

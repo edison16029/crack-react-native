@@ -101,14 +101,11 @@ class SinglePlayerGameComponent extends Component {
     }
 
     //HANDLERS FOR UI
-    handleChangeText = (text) => {
-        this.setState({input : text});
-    }
-
-    handleGuessButtonPress = () => {
-        if(this.state.input.length == 4) {
-            fetchGuessResult(this.state.targetWord['word'], this.state.input.toLowerCase(), this.handleFetchGuessResult)
-            this.setState({input : ""})
+    handleGuessButtonPress = (guess) => {
+        console.log("[SPGC.js] Guess : " + guess)
+        if(guess.length == 4) {
+            this.setState({input : guess})
+            fetchGuessResult(this.state.targetWord['word'], guess.toLowerCase(), this.handleFetchGuessResult)
         }
     };
 
@@ -172,21 +169,6 @@ class SinglePlayerGameComponent extends Component {
         console.log("[SinglePlayerGameComponent.js] Surrender Button Pressed")
         SoundAndVibrate.play('button', this.props.theme.sound, this.props.theme.vibrate)
         this.showSurrenderAlert()
-    }
-
-    handleKeyPress = (key) => {
-        // console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
-        SoundAndVibrate.play('keyPress', this.props.theme.sound)
-        this.setState( (prevState) => {
-            return {input : prevState.input+key}
-        })
-    }
-
-    handleBackspacePress = () => {
-        SoundAndVibrate.play('keyPress', this.props.theme.sound)
-        this.setState( (prevState) => {
-            return {input : prevState.input.slice(0,-1)}
-        })
     }
     
     //HANDLERS FOR SERVER FETCH
@@ -266,13 +248,7 @@ class SinglePlayerGameComponent extends Component {
                         cows = {this.state.guesses.length > 0 ? this.state.guesses[0]['cows'] : 0}
                         bulls = {this.state.guesses.length > 0 ? this.state.guesses[0]['bulls'] : 0} /> 
                     <GuessInputComponent 
-                        input = {this.state.input}
-                        handleChangeText = {this.handleChangeText}
                         handleGuessButtonPress = {this.handleGuessButtonPress}/>
-                    <KeyboardComponent 
-                        onKeyPress={this.handleKeyPress} 
-                        onBackspacePress = {this.handleBackspacePress}
-                        input={this.state.input}/>
 
                     <HowToPlayComponent 
                         onClosePress = {this.onHowToPlayClosePress}

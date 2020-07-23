@@ -9,6 +9,7 @@ import { StatusBar } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import SoundAndVibrate from '../shared/SoundAndVibrate';
+import SinglePlayerGameComponent from './SinglePlayerGameComponent';
 
 const Stack = createStackNavigator( );
 
