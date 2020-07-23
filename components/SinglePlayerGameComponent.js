@@ -11,7 +11,7 @@ import GuessHistoryComponent from './presentationalComponents/GuessHistoryCompon
 import GuessResultComponent from './presentationalComponents/GuessResultComponent'
 import CommentComponent from './presentationalComponents/CommentComponent';
 import KeyboardComponent from './presentationalComponents/KeyboardComponent';
-import { KeyboardAvoidingView, View, Alert, BackHandler } from 'react-native';
+import { KeyboardAvoidingView, View, Alert, BackHandler, Dimensions } from 'react-native';
 import AppBarGameComponent from './presentationalComponents/AppBarGameComponent';
 import CustomAlertComponent from './presentationalComponents/CustomAlertComponent';
 import SoundAndVibrate from '../shared/SoundAndVibrate'
@@ -44,6 +44,7 @@ class SinglePlayerGameComponent extends Component {
     }
 
     componentDidMount() {
+        SoundAndVibrate.play('keyPress', this.props.theme.sound)
         fetchTargetWord("easy", this.handleFetchTargetWord)
         const commentOptions = {
             isBeginning : true,
@@ -105,7 +106,6 @@ class SinglePlayerGameComponent extends Component {
     }
 
     handleGuessButtonPress = () => {
-        SoundAndVibrate.play('guess', this.props.theme.sound)
         if(this.state.input.length == 4) {
             fetchGuessResult(this.state.targetWord['word'], this.state.input.toLowerCase(), this.handleFetchGuessResult)
             this.setState({input : ""})
@@ -120,7 +120,7 @@ class SinglePlayerGameComponent extends Component {
     }
 
     handleRestartButtonPress = () => {
-        SoundAndVibrate.play('button', this.props.theme.sound)
+        SoundAndVibrate.play('gameStart', this.props.theme.sound)
         console.log("[SinglePlayerGameComponent.js] " + "Restart Button Pressed")
         this.setState({            
             id : 0,
@@ -175,15 +175,15 @@ class SinglePlayerGameComponent extends Component {
     }
 
     handleKeyPress = (key) => {
-        console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
-        SoundAndVibrate.play('button', this.props.theme.sound)
+        // console.log(" [SinglePlayerGameComponent.js] " + "Key : ",key )
+        SoundAndVibrate.play('keyPress', this.props.theme.sound)
         this.setState( (prevState) => {
             return {input : prevState.input+key}
         })
     }
 
     handleBackspacePress = () => {
-        SoundAndVibrate.play('button', this.props.theme.sound)
+        SoundAndVibrate.play('keyPress', this.props.theme.sound)
         this.setState( (prevState) => {
             return {input : prevState.input.slice(0,-1)}
         })
@@ -198,6 +198,7 @@ class SinglePlayerGameComponent extends Component {
     handleFetchGuessResult = (response) => {
         console.log("[SinglePlayerGameComponent.js] GuessResult : " + JSON.stringify(response))
         if(response) {
+            SoundAndVibrate.play('rightGuess', this.props.theme.sound)
             const commentOptions = {
                 isBeginning : false,
                 guess : response,
@@ -213,7 +214,7 @@ class SinglePlayerGameComponent extends Component {
             })
         }
         else {
-            SoundAndVibrate.play('button', false, this.props.theme.vibrate)
+            SoundAndVibrate.play('wrongGuess', this.props.theme.sound, this.props.theme.vibrate)
             const commentOptions = {
                 isBeginning : false,
                 guess : null,

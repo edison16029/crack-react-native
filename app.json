@@ -20,6 +20,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package" : "com.madrasdevs.crack",
       "splash": {
         "mdpi": "./assets/img/splash/splash-mdpi.png",
         "hdpi": "./assets/img/splash/splash-hdpi.png",
@@ -28,6 +29,7 @@
         "xxxhdpi": "./assets/img/splash/splash-xxxhdpi.png",
         "resizeMode": "contain"
       },
+      "versionCode" : 1
     }
   }
 }
