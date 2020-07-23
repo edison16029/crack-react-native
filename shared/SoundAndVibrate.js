@@ -22,10 +22,10 @@ class SoundAndVibrate {
 
   static async play(name, playSound, vibrate) {
       try {
-        if(vibrate)
-          Vibration.vibrate()
         if (soundObjects[name] && playSound) 
           await soundObjects[name].replayAsync()
+        if(vibrate)
+          Vibration.vibrate()
       } catch (error) {
         console.warn(error)
       }

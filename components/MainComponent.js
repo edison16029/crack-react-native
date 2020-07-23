@@ -35,20 +35,17 @@ class MainComponent extends Component {
 
     async _loadSoundsAsync() {
         try {
-            soundLibrary = {
-                'button' : require('../assets/sounds/button.wav'),
-                'cracked' : require('../assets/sounds/cracked.wav'),
-                'guess' : require('../assets/sounds/guess.wav'),
-            }
             SoundAndVibrate.loadSoundsAsync({
                 'button' : require('../assets/sounds/button.wav'),
                 'cracked' : require('../assets/sounds/cracked.wav'),
-                'guess' : require('../assets/sounds/guess.wav'),
-                'giveup' : require('../assets/sounds/giveup.mp3')
+                'gameStart' : require('../assets/sounds/gameStart.wav'),
+                'rightGuess' : require('../assets/sounds/rightGuess.wav'),
+                'wrongGuess' : require('../assets/sounds/wrongGuess.wav'),
+                'giveup' : require('../assets/sounds/giveup.wav'),
+                'keyPress' : require("../assets/sounds/keyPress2.wav")
             })
             this.setState({ soundsLoaded: true });
-            //SoundAndVibrate.playSound('button')
-            console.log("[MainComponent.js] Loaded sounds")
+            console.log("[MainComponent.js] Loaded sounds")            
         } catch (error) {
             console.warn("[MainComponent.js] Error Loading sounds")
         }

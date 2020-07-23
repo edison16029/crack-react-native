@@ -57,7 +57,7 @@ class HomeComponent extends Component {
     }
 
     onPlayPress() {
-        SoundAndVibrate.play('button', this.props.theme.sound, this.props.theme.vibrate)
+        SoundAndVibrate.play('gameStart', this.props.theme.sound)
         this.setState({
             homeCardContent : 'logo'
         })

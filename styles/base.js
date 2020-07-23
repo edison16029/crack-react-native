@@ -12,34 +12,34 @@ export const defaultColors  = {
 }
 
 export const padding = {
-    xs : 5,
-    sm: 8,
-    md: 16,
-    lg: 32,
-    xl: 40
+    xs : (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 5,
+    sm: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 8,
+    md: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 16,
+    lg: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 32,
+    xl: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 40
 }
 
 export const margin = {
-    xs : 5,
-    sm: 8,
-    md: 16,
-    lg: 32,
-    xl: 40
+    xs : (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 5,
+    sm: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 8,
+    md: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 16,
+    lg: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 32,
+    xl: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 40
 }
 
 export const fonts = {
-    sm: 18,
-    md: 24,
-    lg: 36,
+    sm: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 18,
+    md: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 24,
+    lg: (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 36,
     spacingSm: 15,
     spacingLg: 20,
     primary: 'Roboto'
 }
 
 export const borderRadius = {
-    radiusSm : 8,
-    radiusMd : 16,
-    radiusLg : 24,
+    radiusSm : (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 8,
+    radiusMd : (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 16,
+    radiusLg : (dimensions.fullHeight/dimensions.fullWidth) * 0.46 * 24,
 } 
 
 

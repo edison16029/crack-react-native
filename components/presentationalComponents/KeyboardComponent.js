@@ -24,7 +24,8 @@ function KeyboardComponent(props) {
         } else {
             const iconSize = BaseStyles.dimensions.fullWidth * 0.07
             return (
-                <TouchableOpacity onPress = { () =>  props.onBackspacePress() } >
+                <TouchableOpacity onPress = { () => props.onBackspacePress() } 
+                    disabled = {props.input.length === 0}>
                     <Icon color={theme.colors.primaryDark} name="backspace" 
                     type="font-awesome" size={iconSize} style={styles.backspace_button} />
                 </TouchableOpacity>     
