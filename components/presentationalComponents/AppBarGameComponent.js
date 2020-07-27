@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function AppBarGameComponent(props) {
-    console.log("[ AppBarGameComponent.js] props : ",props)
+    // console.log("[ AppBarGameComponent.js] props : ",props)
     const {handleExitButtonPress,handleSurrenderButtonPress, isSurrenderShown,onHowToPlayPress} = props
     const theme = useSelector(state => state.theme)
 
@@ -38,8 +38,8 @@ function AppBarGameComponent(props) {
                 
                 <TouchableOpacity onPress = {onHowToPlayPress}>
                     <Icon color={theme.colors.accent} name="question-circle" 
-                        type="font-awesome" size={iconSize} style={styles.app_bar_icons}
-                        onPress = {props.onHowToPlayPress}/>
+                        type="font-awesome" size={iconSize} style={styles.app_bar_icons} />
+                        
                 </TouchableOpacity>
 
                 {surrenderFlag()}

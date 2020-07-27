@@ -230,6 +230,10 @@ class SinglePlayerGameComponent extends Component {
                         guess = {this.state.targetWord['word']}
                         handleHomeButtonPress = {this.handleHomeButtonPress}
                         handleRestartButtonPress = {this.handleRestartButtonPress} />
+
+                    <HowToPlayComponent 
+                        onClosePress = {this.onHowToPlayClosePress}
+                        displayHowToPlay = {this.state.showHowToPlayModal} />
                 </View>
             )
         } else {
