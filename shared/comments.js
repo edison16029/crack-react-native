@@ -7,7 +7,7 @@ export const rare = [
 
 export const profane = [
     "That was rude!",
-    "Naughty!",
+    "Refrain from using such words",
     "Where is the respect?"
 ]
 
@@ -19,16 +19,16 @@ export const almost = [
 ]
 
 export const beginning = [
-    "Let's begin cracking...",
+    "Let's begin cracking",
     "Time to Cr4ck!",
-    "Let the guesses begin...",
+    "Start guessing",
     "Put your thinking caps on"
 ]
 
 export const surrender = [
     "Maybe next time!",
-    "Let's not use the flag again",
-    "Wish you could have tried more?",
+    "Let's not giveup again",
+    "Let's keep trying next time",
     "We don't stop halfway anymore"
 ]
 
@@ -42,9 +42,10 @@ export const stray = [
 export const general = [
     "Good going!",
     "Not bad",
-    "Closer every step!"
-    
+    "Closer every step!",
+    "Way to go"
 ]
+
 
 export const wrongWord = [
     "Invalid guess",

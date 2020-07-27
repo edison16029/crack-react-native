@@ -5155,7 +5155,7 @@
   "1gram-score": 0.468365553602812,
   "is_profane": true,
   "level": "hard",
-  "is_wc": "true",
+  "is_wc": "false",
   "frequency": 5.78,
   "difficulty": 2
  },
@@ -11175,7 +11175,7 @@
   "1gram-score": 0.6871704745166959,
   "is_profane": false,
   "level": "easy",
-  "is_wc": "true",
+  "is_wc": "false",
   "frequency": 4.27,
   "difficulty": 1
  },
@@ -11695,7 +11695,7 @@
   "1gram-score": 0.7750439367311074,
   "is_profane": false,
   "level": "easy",
-  "is_wc": "true",
+  "is_wc": "false",
   "frequency": 4.31,
   "difficulty": 2
  },
@@ -12875,7 +12875,7 @@
   "1gram-score": 0.5553602811950791,
   "is_profane": true,
   "level": "medium",
-  "is_wc": "true",
+  "is_wc": "false",
   "frequency": 5.8,
   "difficulty": 3
  },

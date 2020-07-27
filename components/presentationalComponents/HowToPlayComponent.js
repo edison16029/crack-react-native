@@ -69,7 +69,7 @@ const PageContent = (page,accentColor) => {
         return (
             <View style={styles.pageStyle}>
                 <Text style={textStyle}>
-                    For example, if the secret word is TEAM, the guesses and hints are as follows,
+                    For example, if the secret word is TEAM, the guesses and hints are as follows :
                 </Text>
                 <View style={[pageStyle2.guess,{borderColor : accentColor}]}>
                     <View style={pageStyle2.guessRow}>

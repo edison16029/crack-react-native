@@ -85,6 +85,7 @@ class SinglePlayerGameComponent extends Component {
     }
     onPressSurrenderPositiveButton = () => {
         SoundAndVibrate.play('button', this.props.theme.sound)
+        //SoundAndVibrate.play('giveup', this.props.theme.sound)
         this.hideSurrenderAlert()
         const commentOptions = {
             isBeginning : null,
